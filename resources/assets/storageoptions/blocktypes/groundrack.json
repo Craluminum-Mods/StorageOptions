@@ -1,0 +1,57 @@
+{
+    "code": "groundrack",
+    "class": "StorageOptions.BlockGroundRack",
+    "entityclass": "StorageOptions.BlockEntityGroundRack",
+    "creativeinventory": { "general": ["*-ns"], "decorative": ["*-ns"] },
+    "variantgroups": [
+        { "code": "wood", "states": ["aged"], "loadFromProperties": "block/wood" },
+        { "code": "orientation", "states": ["ns", "we"] }
+    ],
+    "attributes": {
+        "handbook": { "groupBy": ["groundrack-*"] },
+        "customName": {
+            "main": "storageoptions:block-groundrack-*",
+            "parts": [" (", "material-{wood}", ")"]
+        },
+        "inventoryClassName": "groundrack",
+        "attributeTransformCode": "onGroundRackTransform"
+    },
+    "behaviors": [{ "name": "NWOrientable" }, { "name": "Unstable" }],
+    "shape": {
+        "base": "block/wood/groundrack",
+        "rotateYByType": { "*-we": 90 }
+    },
+    "textures": {
+        "wood": { "base": "game:block/wood/debarked/{wood}" },
+        "nail": { "base": "game:block/metal/tarnished/rusty-iron" }
+    },
+    "blockmaterial": "Wood",
+    "lightAbsorption": 0,
+    "faceCullMode": "NeverCull",
+    "emitSideAo": { "all": false },
+    "sidesolid": { "all": false },
+    "sideopaque": { "all": false },
+    "replaceable": 999,
+    "resistance": 1.5,
+    "combustibleProps": {
+        "burnTemperature": 600,
+        "burnDuration": 10
+    },
+    "sounds": {
+        "place": "game:block/planks",
+        "hit": "game:block/planks",
+        "break": "game:block/planks"
+    },
+    "rainPermeable": true,
+    "materialDensity": 600,
+    "collisionbox": { "x1": 0.125, "y1": 0, "z1": 0.25, "x2": 0.875, "y2": 1, "z2": 0.75, "rotateYByType": { "*-we": 90 } },
+    "selectionBoxes": [
+        { "x1": 0.125, "y1": 0, "z1": 0.125, "x2": 0.5, "y2": 1, "z2": 0.5, "rotateYByType": { "*-we": 90 } },
+        { "x1": 0.5, "y1": 0, "z1": 0.125, "x2": 0.875, "y2": 1, "z2": 0.5, "rotateYByType": { "*-we": 90 } },
+        { "x1": 0.125, "y1": 0, "z1": 0.5, "x2": 0.5, "y2": 1, "z2": 0.875, "rotateYByType": { "*-we": 90 } },
+        { "x1": 0.5, "y1": 0, "z1": 0.5, "x2": 0.875, "y2": 1, "z2": 0.875, "rotateYByType": { "*-we": 90 } }
+    ],
+    "guiTransform": {
+        "scale": 1.25
+    }
+}

@@ -1,0 +1,65 @@
+{
+    "code": "shelfone",
+    "class": "StorageOptions.BlockShelfOne",
+    "entityclass": "StorageOptions.BlockEntityShelfOne",
+    "creativeinventory": { "general": ["*-east"], "decorative": ["*-east"] },
+    "variantgroups": [
+        { "code": "wood", "states": ["aged"], "loadFromProperties": "block/wood" },
+        { "code": "side", "loadFromProperties": "abstract/horizontalorientation" }
+    ],
+    "attributes": {
+        "handbook": { "groupBy": ["shelfone-*"] },
+        "customName": {
+            "main": "block-shelf-normal-*",
+            "parts": [" (", "material-{wood}", ")"]
+        },
+        "inventoryClassName": "shelfone",
+        "attributeTransformCode": "onShelfOneTransform"
+    },
+    "behaviors": [{ "name": "HorizontalAttachable", "properties": { "dropBlockFace": "east" } }],
+    "shape": {
+        "base": "game:block/wood/shelf",
+        "selectiveElements": ["lower shelf"],
+        "rotateYByType": { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 }
+    },
+    "textures": {
+        "surface": { "base": "game:block/wood/debarked/{wood}" },
+        "wood2": { "base": "game:block/wood/debarked/{wood}" }
+    },
+    "blockmaterial": "Wood",
+    "lightAbsorption": 0,
+    "faceCullMode": "NeverCull",
+    "emitSideAo": { "all": false },
+    "sidesolid": { "all": false },
+    "sideopaque": { "all": false },
+    "replaceable": 999,
+    "resistance": 1.5,
+    "combustibleProps": {
+        "burnTemperature": 600,
+        "burnDuration": 10
+    },
+    "sounds": {
+        "place": "game:block/planks",
+        "hit": "game:block/planks",
+        "break": "game:block/planks"
+    },
+    "rainPermeable": true,
+    "materialDensity": 600,
+    "collisionSelectionBox": {
+        "x1": 0,
+        "y1": 0,
+        "z1": 0,
+        "x2": 1,
+        "y2": 0.125,
+        "z2": 0.8125,
+        "rotateYByType": { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 }
+    },
+    "guiTransform": {
+        "origin": { "x": 0.5, "y": -0, "z": 0.5 },
+        "scale": 1.2
+    },
+    "fpHandTransform": {
+        "translation": { "x": 0.08, "y": -0.2, "z": 0.6 },
+        "rotation": { "x": 33, "y": 134, "z": -102 }
+    }
+}

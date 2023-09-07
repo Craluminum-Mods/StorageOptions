@@ -1,0 +1,22 @@
+[
+    {
+        "ingredientPattern": "_P,P_",
+        "ingredients": {
+            "P": { "type": "item", "code": "game:plank-*", "name": "wood" }
+        },
+        "width": 2,
+        "height": 2,
+        "recipeGroup": 1,
+        "output": { "type": "block", "code": "shelfone-{wood}-east" }
+    },
+    {
+        "ingredientPattern": "P_,_P",
+        "ingredients": {
+            "P": { "type": "item", "code": "game:plank-*", "name": "wood" }
+        },
+        "width": 2,
+        "height": 2,
+        "recipeGroup": 2,
+        "output": { "type": "block", "code": "shelfone-{wood}-east" }
+    }
+]

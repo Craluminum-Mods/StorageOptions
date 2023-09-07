@@ -1,0 +1,23 @@
+[
+    {
+        "ingredientPattern": "_S_,S_S,PPP",
+        "ingredients": {
+            "P": { "type": "item", "code": "game:plank-*", "name": "wood" },
+            "S": { "type": "item", "code": "game:stick" }
+        },
+        "width": 3,
+        "height": 3,
+        "output": { "type": "block", "code": "groundrack-{wood}-ns" }
+    },
+    {
+        "ingredientPattern": "PPP,S_S,_S_",
+        "ingredients": {
+            "P": { "type": "item", "code": "game:plank-*", "name": "wood" },
+            "S": { "type": "item", "code": "game:stick" }
+        },
+        "width": 3,
+        "height": 3,
+        "recipeGroup": 1,
+        "output": { "type": "block", "code": "groundrack-{wood}-ns" }
+    }
+]
