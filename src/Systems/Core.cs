@@ -18,7 +18,7 @@ global using Vintagestory.GameContent;
 
 namespace StorageOptions;
 
-public partial class Core : ModSystem
+public class Core : ModSystem
 {
     public Transformations Transformations { get; private set; } = new();
 

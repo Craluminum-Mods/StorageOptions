@@ -1,107 +1,104 @@
 namespace StorageOptions;
 
-public partial class Core
+public class BlockEntityShelfOne : BlockEntityDisplay
 {
-    public class BlockEntityShelfOne : BlockEntityDisplay
+    private readonly InventoryGeneric inventory;
+    private const int slotCount = 1;
+
+    public override InventoryBase Inventory => inventory;
+    public override string InventoryClassName => Block?.Attributes?["inventoryClassName"].AsString();
+    public override string AttributeTransformCode => Block?.Attributes?["attributeTransformCode"].AsString();
+
+    public BlockEntityShelfOne()
     {
-        private readonly InventoryGeneric inventory;
-        private const int slotCount = 1;
+        inventory = new InventoryGeneric(slotCount, "shelfone-0", Api, (_, inv) => new ItemSlotShelfOne(inv));
+    }
 
-        public override InventoryBase Inventory => inventory;
-        public override string InventoryClassName => Block?.Attributes?["inventoryClassName"].AsString();
-        public override string AttributeTransformCode => Block?.Attributes?["attributeTransformCode"].AsString();
-
-        public BlockEntityShelfOne()
+    internal bool OnInteract(IPlayer byPlayer, BlockSelection blockSel)
+    {
+        ItemSlot slot = byPlayer.InventoryManager.ActiveHotbarSlot;
+        if (slot.Empty)
         {
-            inventory = new InventoryGeneric(slotCount, "shelfone-0", Api, (_, inv) => new ItemSlotShelfOne(inv));
+            return TryTake(byPlayer, blockSel);
         }
-
-        internal bool OnInteract(IPlayer byPlayer, BlockSelection blockSel)
+        if (slot.IsShelvableOne())
         {
-            ItemSlot slot = byPlayer.InventoryManager.ActiveHotbarSlot;
-            if (slot.Empty)
+            AssetLocation sound = slot.Itemstack?.Block?.Sounds?.Place;
+            if (TryPut(slot, blockSel))
             {
-                return TryTake(byPlayer, blockSel);
-            }
-            if (slot.IsShelvableOne())
-            {
-                AssetLocation sound = slot.Itemstack?.Block?.Sounds?.Place;
-                if (TryPut(slot, blockSel))
-                {
-                    Api.World.PlaySoundAt(sound ?? DefaultPlaceSound, byPlayer.Entity, byPlayer, randomizePitch: true, 16f);
-                    updateMeshes();
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private bool TryPut(ItemSlot slot, BlockSelection blockSel)
-        {
-            int i = blockSel.SelectionBoxIndex;
-
-            if (inventory[i].Empty)
-            {
-                int amount = slot.TryPutInto(Api.World, inventory[i]);
-                updateMeshes();
-                MarkDirty(redrawOnClient: true);
-                (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
-                return amount > 0;
-            }
-            return false;
-        }
-
-        private bool TryTake(IPlayer byPlayer, BlockSelection blockSel)
-        {
-            int i = blockSel.SelectionBoxIndex;
-
-            if (!inventory[i].Empty)
-            {
-                ItemStack stack = inventory[i].TakeOut(1);
-                if (byPlayer.InventoryManager.TryGiveItemstack(stack))
-                {
-                    AssetLocation sound = stack.Block?.Sounds?.Place;
-                    Api.World.PlaySoundAt(sound ?? DefaultPlaceSound, byPlayer.Entity, byPlayer, randomizePitch: true, 16f);
-                }
-                if (stack.StackSize > 0)
-                {
-                    Api.World.SpawnItemEntity(stack, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
-                }
-                (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
-                MarkDirty(redrawOnClient: true);
+                Api.World.PlaySoundAt(sound ?? DefaultPlaceSound, byPlayer.Entity, byPlayer, randomizePitch: true, 16f);
                 updateMeshes();
                 return true;
             }
-            return false;
         }
+        return false;
+    }
 
-        public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb)
+    private bool TryPut(ItemSlot slot, BlockSelection blockSel)
+    {
+        int i = blockSel.SelectionBoxIndex;
+
+        if (inventory[i].Empty)
         {
-            base.GetBlockInfo(forPlayer, sb);
-            sb.AppendLine();
+            int amount = slot.TryPutInto(Api.World, inventory[i]);
+            updateMeshes();
+            MarkDirty(redrawOnClient: true);
+            (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
+            return amount > 0;
+        }
+        return false;
+    }
 
-            if (!inventory[0].Empty)
+    private bool TryTake(IPlayer byPlayer, BlockSelection blockSel)
+    {
+        int i = blockSel.SelectionBoxIndex;
+
+        if (!inventory[i].Empty)
+        {
+            ItemStack stack = inventory[i].TakeOut(1);
+            if (byPlayer.InventoryManager.TryGiveItemstack(stack))
             {
-                ItemStack stack = inventory[0].Itemstack;
-                sb.AppendLine(stack.GetName());
+                AssetLocation sound = stack.Block?.Sounds?.Place;
+                Api.World.PlaySoundAt(sound ?? DefaultPlaceSound, byPlayer.Entity, byPlayer, randomizePitch: true, 16f);
             }
+            if (stack.StackSize > 0)
+            {
+                Api.World.SpawnItemEntity(stack, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
+            }
+            (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
+            MarkDirty(redrawOnClient: true);
+            updateMeshes();
+            return true;
         }
+        return false;
+    }
 
-        protected override float[][] genTransformationMatrices()
+    public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb)
+    {
+        base.GetBlockInfo(forPlayer, sb);
+        sb.AppendLine();
+
+        if (!inventory[0].Empty)
         {
-            float[][] tfMatrices = new float[slotCount][];
-
-            const float x = 0.5f;
-            const float y = 0.125f;
-            const float z = 0.5f;
-            tfMatrices[0] = new Matrixf()
-                .Translate(0.5f, 0f, 0.5f)
-                .RotateYDeg(Block.Shape.rotateY)
-                .Translate(x - 0.5f, y, z - 0.5f)
-                .Translate(-0.5f, 0f, -0.5f)
-                .Values;
-
-            return tfMatrices;
+            ItemStack stack = inventory[0].Itemstack;
+            sb.AppendLine(stack.GetName());
         }
+    }
+
+    protected override float[][] genTransformationMatrices()
+    {
+        float[][] tfMatrices = new float[slotCount][];
+
+        const float x = 0.5f;
+        const float y = 0.125f;
+        const float z = 0.5f;
+        tfMatrices[0] = new Matrixf()
+            .Translate(0.5f, 0f, 0.5f)
+            .RotateYDeg(Block.Shape.rotateY)
+            .Translate(x - 0.5f, y, z - 0.5f)
+            .Translate(-0.5f, 0f, -0.5f)
+            .Values;
+
+        return tfMatrices;
     }
 }
