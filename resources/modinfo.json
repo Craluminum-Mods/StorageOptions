@@ -4,7 +4,7 @@
     "name": "Storage Options",
     "description": "Various containers for storing your items such as weapon rack, single shelf etc.",
     "authors": ["Craluminum2413"],
-    "version": "1.0.0",
+    "version": "1.0.1",
     "dependencies": {
         "game": "1.18.8"
     }
