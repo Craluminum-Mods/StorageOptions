@@ -83,7 +83,7 @@ public class Core : ModSystem
     {
         ModelTransform transform = obj.GetTransform(Transformations.OnShelfOneTransform);
 
-        if (WildcardUtil.Match(ShelvableOneCodes, obj.ToString()) || ShelvableOneTypes.Contains(obj.GetType()) || obj?.Attributes?.KeyExists("backpack") == true)
+        if (WildcardUtil.Match(ShelvableOneCodes, obj.Code.ToString()) || ShelvableOneTypes.Contains(obj.GetType()) || obj?.Attributes?.KeyExists("backpack") == true)
         {
             // obj.AddToCreativeInv(tab: ShelvableOne); // for testing
 
