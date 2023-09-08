@@ -17,13 +17,13 @@ public static class Constants
 
     public static readonly string[] ShelvableOneCodes = new string[]
     {
+        "*ingotmold*",
+        "*toolmold*",
         "game:*arcass*",
-        "game:clayplanter-*",
-        "game:flowerpot-*",
+        "game:helvehammerhead-*",
         "game:pineapple",
         "game:pumpkin-fruit-*",
         "game:sieve-*",
-        "game:toolmold-*-anvil",
     };
 
     public static readonly Type[] ShelvableOneTypes = new Type[]
@@ -32,10 +32,13 @@ public static class Constants
         typeof(BlockAnvilPart),
         typeof(BlockBomb),
         typeof(BlockBucket),
+        typeof(BlockIngotMold),
         typeof(BlockLantern),
         typeof(BlockPan),
+        typeof(BlockPlantContainer),
         typeof(BlockResonator),
         typeof(BlockSkep),
+        typeof(BlockToolMold),
         typeof(BlockTorch),
         typeof(BlockWateringCan),
         typeof(ItemWorkItem),
