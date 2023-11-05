@@ -1,5 +1,4 @@
 global using static StorageOptions.Constants;
-global using static StorageOptions.Core;
 global using Newtonsoft.Json.Linq;
 global using System;
 global using System.Collections.Generic;
@@ -20,11 +19,12 @@ namespace StorageOptions;
 
 public class Core : ModSystem
 {
-    public Transformations Transformations { get; private set; } = new();
+    public Transformations Transformations { get; } = new();
 
     public override void Start(ICoreAPI api)
     {
         base.Start(api);
+        api.RegisterBlockBehaviorClass("StorageOptions.BbName", typeof(BlockBehaviorName));
         api.RegisterBlockClass("StorageOptions.BlockGroundRack", typeof(BlockGroundRack));
         api.RegisterBlockClass("StorageOptions.BlockShelfOne", typeof(BlockShelfOne));
         api.RegisterBlockEntityClass("StorageOptions.BlockEntityGroundRack", typeof(BlockEntityGroundRack));

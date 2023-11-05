@@ -12,7 +12,7 @@ public class BlockGroundRack : Block
             interactions = (api as ICoreClientAPI)?.GetOrCreateToolrackInteractions("groundRackBlockInteractions", EnumStorageOption.GroundRackable);
         }
 
-        PriorityInteract = true;
+        PlacedPriorityInteract = true;
     }
 
     public override WorldInteraction[] GetPlacedBlockInteractionHelp(IWorldAccessor world, BlockSelection selection, IPlayer forPlayer)
@@ -30,7 +30,4 @@ public class BlockGroundRack : Block
             ? blockEntity.OnInteract(byPlayer, blockSel)
             : base.OnBlockInteractStart(world, byPlayer, blockSel);
     }
-
-    public override string GetPlacedBlockName(IWorldAccessor world, BlockPos pos) => this.ConstructName();
-    public override string GetHeldItemName(ItemStack itemStack) => this.ConstructName();
 }

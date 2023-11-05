@@ -2,21 +2,27 @@
     "code": "groundrack",
     "class": "StorageOptions.BlockGroundRack",
     "entityclass": "StorageOptions.BlockEntityGroundRack",
-    "creativeinventory": { "general": ["*-ns"], "decorative": ["*-ns"] },
+    "creativeinventory": { "general": ["*-ns"], "decorative": ["*-ns"], "storageoptions": ["*-ns"] },
     "variantgroups": [
         { "code": "wood", "states": ["aged"], "loadFromProperties": "block/wood" },
         { "code": "orientation", "states": ["ns", "we"] }
     ],
     "attributes": {
         "handbook": { "groupBy": ["groundrack-*"] },
-        "customName": {
-            "main": "storageoptions:block-groundrack-*",
-            "parts": [" (", "material-{wood}", ")"]
-        },
         "inventoryClassName": "groundrack",
         "attributeTransformCode": "onGroundRackTransform"
     },
-    "behaviors": [{ "name": "NWOrientable" }, { "name": "Unstable" }],
+    "behaviors": [
+        {
+            "name": "StorageOptions.BbName",
+            "properties": {
+                "main": "storageoptions:block-groundrack-*",
+                "parts": [" (", "material-{wood}", ")"]
+            }
+        },
+        { "name": "NWOrientable" },
+        { "name": "Unstable" }
+    ],
     "shape": {
         "base": "block/wood/groundrack",
         "rotateYByType": { "*-we": 90 }

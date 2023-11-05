@@ -28,7 +28,4 @@ public class BlockShelfOne : Block
             ? blockEntity.OnInteract(byPlayer, blockSel)
             : base.OnBlockInteractStart(world, byPlayer, blockSel);
     }
-
-    public override string GetPlacedBlockName(IWorldAccessor world, BlockPos pos) => this.ConstructName();
-    public override string GetHeldItemName(ItemStack itemStack) => this.ConstructName();
 }

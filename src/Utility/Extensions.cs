@@ -81,25 +81,23 @@ public static class Extensions
         return list;
     }
 
-    public static string ConstructName(this CollectibleObject obj)
+    public static string ConstructName(this string bhMain, List<string> bhParts = null)
     {
-        if (!obj.Attributes.KeyExists("customName"))
-        {
-            return obj.Code.ToString();
-        }
-
-        string main = obj.Attributes["customName"]["main"].AsString();
-
         StringBuilder sb = new();
-        sb.Append(Lang.GetMatchingIfExists(main));
 
-        if (!obj.Attributes["customName"].KeyExists("parts"))
+        if (string.IsNullOrEmpty(bhMain))
         {
             return sb.ToString();
         }
 
-        List<string> parts = obj.Attributes["customName"]["parts"].AsObject<List<string>>();
-        foreach (string part in parts)
+        sb.Append(Lang.GetMatchingIfExists(bhMain));
+
+        if (bhParts?.Count == 0)
+        {
+            return sb.ToString();
+        }
+
+        foreach (string part in bhParts)
         {
             sb.Append(Lang.GetMatchingIfExists(part) ?? part);
         }

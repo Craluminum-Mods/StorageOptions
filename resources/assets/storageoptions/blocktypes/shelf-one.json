@@ -2,21 +2,26 @@
     "code": "shelfone",
     "class": "StorageOptions.BlockShelfOne",
     "entityclass": "StorageOptions.BlockEntityShelfOne",
-    "creativeinventory": { "general": ["*-east"], "decorative": ["*-east"] },
+    "creativeinventory": { "general": ["*-east"], "decorative": ["*-east"], "storageoptions": ["*-east"] },
     "variantgroups": [
         { "code": "wood", "states": ["aged"], "loadFromProperties": "block/wood" },
         { "code": "side", "loadFromProperties": "abstract/horizontalorientation" }
     ],
     "attributes": {
         "handbook": { "groupBy": ["shelfone-*"] },
-        "customName": {
-            "main": "block-shelf-normal-*",
-            "parts": [" (", "material-{wood}", ")"]
-        },
         "inventoryClassName": "shelfone",
         "attributeTransformCode": "onShelfOneTransform"
     },
-    "behaviors": [{ "name": "HorizontalAttachable", "properties": { "dropBlockFace": "east" } }],
+    "behaviors": [
+        {
+            "name": "StorageOptions.BbName",
+            "properties": {
+                "main": "block-shelf-normal-*",
+                "parts": [" (", "material-{wood}", ")"]
+            }
+        },
+        { "name": "HorizontalAttachable", "properties": { "dropBlockFace": "east" } }
+    ],
     "shape": {
         "base": "game:block/wood/shelf",
         "selectiveElements": ["lower shelf"],
