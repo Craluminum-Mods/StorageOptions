@@ -1,9 +1,16 @@
 namespace StorageOptions;
 
-public class BlockEntityGroundRack : BlockEntityDisplay
+public class BlockEntityGroundRack : BlockEntityDisplay, IRotatable
 {
     private readonly InventoryGeneric inventory;
     private const int slotCount = 4;
+
+    private MeshData mesh;
+    private float[] mat;
+    private Cuboidf[] SelectionBoxes;
+
+    public Materials Materials { get; } = new();
+    public float MeshAngleRad { get; set; }
 
     public override InventoryBase Inventory => inventory;
     public override string InventoryClassName => Block?.Attributes?["inventoryClassName"].AsString();
@@ -12,6 +19,33 @@ public class BlockEntityGroundRack : BlockEntityDisplay
     public BlockEntityGroundRack()
     {
         inventory = new InventoryGeneric(slotCount, "groundrack-0", Api, (_, inv) => new ItemSlotGroundRack(inv));
+    }
+
+    private void Init()
+    {
+        if (Api != null && Api.Side == EnumAppSide.Client && Materials.Full && Block is BlockGroundRack block)
+        {
+            mesh = block.GetOrCreateMesh(Materials);
+            mat = Matrixf.Create().Translate(0.5f, 0.5f, 0.5f).RotateY(MeshAngleRad)
+                .Translate(-0.5f, -0.5f, -0.5f)
+                .Values;
+        }
+    }
+
+    public override void Initialize(ICoreAPI api)
+    {
+        base.Initialize(api);
+        if (mesh == null)
+        {
+            Init();
+        }
+    }
+
+    public override void OnBlockPlaced(ItemStack byItemStack = null)
+    {
+        base.OnBlockPlaced(byItemStack);
+        Materials.Wood = byItemStack?.Attributes.GetOrAddTreeAttribute("materials").GetString("wood");
+        Init();
     }
 
     internal bool OnInteract(IPlayer byPlayer, BlockSelection blockSel)
@@ -73,9 +107,57 @@ public class BlockEntityGroundRack : BlockEntityDisplay
         return false;
     }
 
+    protected override float[][] genTransformationMatrices()
+    {
+        float[][] tfMatrices = new float[slotCount][];
+        const float y = 0.125f;
+        const float z = 0.25f;
+
+        for (int index = 0; index < slotCount; index++)
+        {
+            float x = (index == 1 || index == 2) ? 0.625f : 0.25f;
+
+            Matrixf matrix = new Matrixf()
+                .Translate(0.5f, 0f, 0.5f)
+                .RotateY(MeshAngleRad + (index == 2 || index == 3 ? (float)Math.PI : 0));
+
+            tfMatrices[index] = matrix
+                .Translate(x - 0.5f, y, z - 0.5f)
+                .Translate(-0.5f, 0f, -0.5f)
+                .Values;
+        }
+
+        return tfMatrices;
+    }
+
+    public override void ToTreeAttributes(ITreeAttribute tree)
+    {
+        base.ToTreeAttributes(tree);
+        tree.GetOrAddTreeAttribute("materials").SetString("wood", Materials.Wood);
+        tree.SetFloat("meshAngleRad", MeshAngleRad);
+    }
+
+    public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving)
+    {
+        base.FromTreeAttributes(tree, worldForResolving);
+        Materials.Wood = tree.GetOrAddTreeAttribute("materials").GetString("wood");
+        MeshAngleRad = tree.GetFloat("meshAngleRad");
+        Init();
+    }
+
+    public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tessThreadTesselator)
+    {
+        mesher.AddMeshData(mesh, mat);
+        base.OnTesselation(mesher, tessThreadTesselator);
+        return true;
+    }
+
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb)
     {
         int i = forPlayer.CurrentBlockSelection.SelectionBoxIndex;
+
+        Materials.OutputTranslatedDescription(sb);
+
         ItemSlot slot = inventory[i];
         if (!slot.Empty)
         {
@@ -84,62 +166,24 @@ public class BlockEntityGroundRack : BlockEntityDisplay
         }
     }
 
-    protected override float[][] genTransformationMatrices()
+    public void OnTransformed(ITreeAttribute tree, int degreeRotation, EnumAxis? flipAxis)
     {
-        float[][] tfMatrices = new float[slotCount][];
+        MeshAngleRad = tree.GetFloat("meshAngleRad");
+        MeshAngleRad -= degreeRotation * ((float)Math.PI / 180f);
+        tree.SetFloat("meshAngleRad", MeshAngleRad);
+    }
 
-        for (int index = 0; index < slotCount; index++)
+    public Cuboidf[] GetOrCreateSelectionBoxes()
+    {
+        if (SelectionBoxes == null)
         {
-            if (index == 0)
+            Cuboidf[] _selectionBoxes = Block.SelectionBoxes;
+            SelectionBoxes = new Cuboidf[_selectionBoxes.Length];
+            for (int i = 0; i < _selectionBoxes.Length; i++)
             {
-                const float x = 0.25f;
-                const float y = 0.125f;
-                const float z = 0.25f;
-                tfMatrices[index] = new Matrixf()
-                    .Translate(0.5f, 0f, 0.5f)
-                    .RotateYDeg(Block.Shape.rotateY)
-                    .Translate(x - 0.5f, y, z - 0.5f)
-                    .Translate(-0.5f, 0f, -0.5f)
-                    .Values;
-            }
-            if (index == 1)
-            {
-                const float x = 0.625f;
-                const float y = 0.125f;
-                const float z = 0.25f;
-                tfMatrices[index] = new Matrixf()
-                    .Translate(0.5f, 0f, 0.5f)
-                    .RotateYDeg(Block.Shape.rotateY)
-                    .Translate(x - 0.5f, y, z - 0.5f)
-                    .Translate(-0.5f, 0f, -0.5f)
-                    .Values;
-            }
-            if (index == 2)
-            {
-                const float x = 0.625f;
-                const float y = 0.125f;
-                const float z = 0.25f;
-                tfMatrices[index] = new Matrixf()
-                    .Translate(0.5f, 0f, 0.5f)
-                    .RotateYDeg(Block.Shape.rotateY + 180)
-                    .Translate(x - 0.5f, y, z - 0.5f)
-                    .Translate(-0.5f, 0f, -0.5f)
-                    .Values;
-            }
-            if (index == 3)
-            {
-                const float x = 0.25f;
-                const float y = 0.125f;
-                const float z = 0.25f;
-                tfMatrices[index] = new Matrixf()
-                    .Translate(0.5f, 0f, 0.5f)
-                    .RotateYDeg(Block.Shape.rotateY + 180)
-                    .Translate(x - 0.5f, y, z - 0.5f)
-                    .Translate(-0.5f, 0f, -0.5f)
-                    .Values;
+                SelectionBoxes[i] = _selectionBoxes[i].RotatedCopy(0f, MeshAngleRad * (180f / (float)Math.PI), 0f, new Vec3d(0.5, 0.5, 0.5));
             }
         }
-
-        return tfMatrices;
+        return SelectionBoxes;
     }
 }

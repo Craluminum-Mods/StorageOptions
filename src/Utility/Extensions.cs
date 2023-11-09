@@ -1,3 +1,5 @@
+using Vintagestory.ServerMods;
+
 namespace StorageOptions;
 
 public static class Extensions
@@ -36,6 +38,45 @@ public static class Extensions
         {
             obj.CreativeInventoryTabs = obj.CreativeInventoryTabs.Append(tab).ToArray();
         }
+    }
+
+    public static void AddToCreativeInv(this CollectibleObject obj, List<JsonItemStack> stacks, params string[] tabs)
+    {
+        obj.CreativeInventoryStacks = new CreativeTabAndStackList[1]
+        {
+            new CreativeTabAndStackList
+            {
+                Stacks = stacks.ToArray(),
+                Tabs = tabs
+            }
+        };
+    }
+
+    public static JsonItemStack CreateJStack(this ICoreAPI api, CollectibleObject obj, string attributes)
+    {
+        JsonItemStack jstack = new()
+        {
+            Code = obj.Code,
+            Type = obj.ItemClass,
+            Attributes = new JsonObject(JToken.Parse(attributes))
+        };
+        _ = jstack.Resolve(api.World, obj.Code?.ToString() + " type");
+        return jstack;
+    }
+
+    public static string[] ResolveVariants(this ICoreAPI api, CollectibleObject obj, string materialAttr)
+    {
+        RegistryObjectVariantGroup grp = obj.Attributes["materials"][materialAttr].AsObject<RegistryObjectVariantGroup>();
+        string[] materials = grp.States;
+        if (grp.LoadFromProperties != null)
+        {
+            materials = (api.Assets.TryGet(grp
+                .LoadFromProperties
+                .WithPathPrefixOnce("worldproperties/")
+                .WithPathAppendixOnce(".json"))?.ToObject<StandardWorldProperty>()).Variants.Select((p) => p.Code.Path).ToArray().Append(materials);
+        }
+
+        return materials;
     }
 
     public static WorldInteraction[] GetOrCreateToolrackInteractions(this ICoreClientAPI capi, string key, EnumStorageOption option)

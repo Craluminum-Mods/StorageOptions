@@ -2,12 +2,21 @@
     "code": "shelfone",
     "class": "StorageOptions.BlockShelfOne",
     "entityclass": "StorageOptions.BlockEntityShelfOne",
-    "creativeinventory": { "general": ["*-east"], "decorative": ["*-east"], "storageoptions": ["*-east"] },
-    "variantgroups": [
-        { "code": "wood", "states": ["aged"], "loadFromProperties": "block/wood" },
-        { "code": "side", "loadFromProperties": "abstract/horizontalorientation" }
-    ],
+    // "creativeinventory": { "general": ["*-east"], "decorative": ["*-east"], "storageoptions": ["*-east"] },
+    // "variantgroups": [
+    //     { "code": "wood", "states": ["aged"], "loadFromProperties": "block/wood" },
+    //     { "code": "side", "loadFromProperties": "abstract/horizontalorientation" }
+    // ],
     "attributes": {
+        // "materials": {
+        //     "wood": { "loadFromProperties": "block/wood", "states": ["aged"] }
+        // },
+        // "shape": { "base": "storageoptions:block/wood/groundrack" },
+        // "textures": {
+        //     "wood": { "base": "game:block/wood/debarked/{wood}" },
+        //     "nail": { "base": "game:block/metal/tarnished/rusty-iron" }
+        // },
+        // "creativeInventoryTabs": ["general", "decorative", "storageoptions"],
         "handbook": { "groupBy": ["shelfone-*"] },
         "inventoryClassName": "shelfone",
         "attributeTransformCode": "onShelfOneTransform"

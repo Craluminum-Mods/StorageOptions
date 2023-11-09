@@ -2,35 +2,22 @@
     "code": "groundrack",
     "class": "StorageOptions.BlockGroundRack",
     "entityclass": "StorageOptions.BlockEntityGroundRack",
-    "creativeinventory": { "general": ["*-ns"], "decorative": ["*-ns"], "storageoptions": ["*-ns"] },
-    "variantgroups": [
-        { "code": "wood", "states": ["aged"], "loadFromProperties": "block/wood" },
-        { "code": "orientation", "states": ["ns", "we"] }
-    ],
     "attributes": {
-        "handbook": { "groupBy": ["groundrack-*"] },
+        "materials": {
+            "wood": { "loadFromProperties": "block/wood", "states": ["aged"] }
+        },
+        "shape": { "base": "storageoptions:block/wood/groundrack" },
+        "textures": {
+            "wood": { "base": "game:block/wood/debarked/{wood}" },
+            "nail": { "base": "game:block/metal/tarnished/rusty-iron" }
+        },
+        "creativeInventoryTabs": ["general", "decorative", "storageoptions"],
+        "handbook": { "groupBy": ["groundrack"] },
         "inventoryClassName": "groundrack",
         "attributeTransformCode": "onGroundRackTransform"
     },
-    "behaviors": [
-        {
-            "name": "StorageOptions.BbName",
-            "properties": {
-                "main": "storageoptions:block-groundrack-*",
-                "parts": [" (", "material-{wood}", ")"]
-            }
-        },
-        { "name": "NWOrientable" },
-        { "name": "Unstable" }
-    ],
-    "shape": {
-        "base": "block/wood/groundrack",
-        "rotateYByType": { "*-we": 90 }
-    },
-    "textures": {
-        "wood": { "base": "game:block/wood/debarked/{wood}" },
-        "nail": { "base": "game:block/metal/tarnished/rusty-iron" }
-    },
+    "behaviors": [{ "name": "Unstable" }],
+    "shape": { "base": "block/wood/groundrack", "rotateY": 0 },
     "blockmaterial": "Wood",
     "lightAbsorption": 0,
     "faceCullMode": "NeverCull",
