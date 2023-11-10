@@ -133,7 +133,7 @@ public static class Extensions
 
         sb.Append(Lang.GetMatchingIfExists(bhMain));
 
-        if (bhParts?.Count == 0)
+        if (bhParts == null || bhParts.Count == 0)
         {
             return sb.ToString();
         }

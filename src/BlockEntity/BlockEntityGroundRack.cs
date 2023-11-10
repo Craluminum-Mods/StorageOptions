@@ -1,6 +1,6 @@
 namespace StorageOptions;
 
-public class BlockEntityGroundRack : BlockEntityDisplay, IRotatable
+public class BlockEntityGroundRack : BlockEntityDisplay, IRotatable, IBlockEntityCustomShapeTextures
 {
     private readonly InventoryGeneric inventory;
     private const int slotCount = 4;
@@ -23,7 +23,7 @@ public class BlockEntityGroundRack : BlockEntityDisplay, IRotatable
 
     private void Init()
     {
-        if (Api != null && Api.Side == EnumAppSide.Client && Materials.Full && Block is BlockGroundRack block)
+        if (Api != null && Api.Side == EnumAppSide.Client && Materials.Full && Block is BlockWithAttributes block)
         {
             mesh = block.GetOrCreateMesh(Materials);
             mat = Matrixf.Create().Translate(0.5f, 0.5f, 0.5f).RotateY(MeshAngleRad)
@@ -48,7 +48,7 @@ public class BlockEntityGroundRack : BlockEntityDisplay, IRotatable
         Init();
     }
 
-    internal bool OnInteract(IPlayer byPlayer, BlockSelection blockSel)
+    public bool OnInteract(IPlayer byPlayer, BlockSelection blockSel)
     {
         ItemSlot slot = byPlayer.InventoryManager.ActiveHotbarSlot;
         if (slot.Empty)

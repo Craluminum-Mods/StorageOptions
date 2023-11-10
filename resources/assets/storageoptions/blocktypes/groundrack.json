@@ -17,7 +17,6 @@
         "attributeTransformCode": "onGroundRackTransform"
     },
     "behaviors": [{ "name": "Unstable" }],
-    "shape": { "base": "block/wood/groundrack", "rotateY": 0 },
     "blockmaterial": "Wood",
     "lightAbsorption": 0,
     "faceCullMode": "NeverCull",
@@ -37,12 +36,12 @@
     },
     "rainPermeable": true,
     "materialDensity": 600,
-    "collisionbox": { "x1": 0.125, "y1": 0, "z1": 0.25, "x2": 0.875, "y2": 1, "z2": 0.75, "rotateYByType": { "*-we": 90 } },
+    "collisionbox": { "x1": 0.125, "y1": 0, "z1": 0.25, "x2": 0.875, "y2": 1, "z2": 0.75 },
     "selectionBoxes": [
-        { "x1": 0.125, "y1": 0, "z1": 0.125, "x2": 0.5, "y2": 1, "z2": 0.5, "rotateYByType": { "*-we": 90 } },
-        { "x1": 0.5, "y1": 0, "z1": 0.125, "x2": 0.875, "y2": 1, "z2": 0.5, "rotateYByType": { "*-we": 90 } },
-        { "x1": 0.125, "y1": 0, "z1": 0.5, "x2": 0.5, "y2": 1, "z2": 0.875, "rotateYByType": { "*-we": 90 } },
-        { "x1": 0.5, "y1": 0, "z1": 0.5, "x2": 0.875, "y2": 1, "z2": 0.875, "rotateYByType": { "*-we": 90 } }
+        { "x1": 0.125, "y1": 0, "z1": 0.125, "x2": 0.5, "y2": 1, "z2": 0.5 },
+        { "x1": 0.5, "y1": 0, "z1": 0.125, "x2": 0.875, "y2": 1, "z2": 0.5 },
+        { "x1": 0.125, "y1": 0, "z1": 0.5, "x2": 0.5, "y2": 1, "z2": 0.875 },
+        { "x1": 0.5, "y1": 0, "z1": 0.5, "x2": 0.875, "y2": 1, "z2": 0.875 }
     ],
     "guiTransform": {
         "scale": 1.25

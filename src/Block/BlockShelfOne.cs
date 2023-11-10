@@ -1,6 +1,6 @@
 namespace StorageOptions;
 
-public class BlockShelfOne : Block
+public class BlockShelfOne : BlockWithAttributes
 {
     private WorldInteraction[] interactions;
 
@@ -21,11 +21,4 @@ public class BlockShelfOne : Block
     public override bool DoParticalSelection(IWorldAccessor world, BlockPos pos) => true;
 
     public override Vec4f GetSelectionColor(ICoreClientAPI capi, BlockPos pos) => ColorUtil.WhiteArgbVec;
-
-    public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel)
-    {
-        return world.BlockAccessor.GetBlockEntity(blockSel.Position) is BlockEntityShelfOne blockEntity
-            ? blockEntity.OnInteract(byPlayer, blockSel)
-            : base.OnBlockInteractStart(world, byPlayer, blockSel);
-    }
 }

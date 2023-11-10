@@ -2,44 +2,25 @@
     "code": "shelfone",
     "class": "StorageOptions.BlockShelfOne",
     "entityclass": "StorageOptions.BlockEntityShelfOne",
-    // "creativeinventory": { "general": ["*-east"], "decorative": ["*-east"], "storageoptions": ["*-east"] },
-    // "variantgroups": [
-    //     { "code": "wood", "states": ["aged"], "loadFromProperties": "block/wood" },
-    //     { "code": "side", "loadFromProperties": "abstract/horizontalorientation" }
-    // ],
     "attributes": {
-        // "materials": {
-        //     "wood": { "loadFromProperties": "block/wood", "states": ["aged"] }
-        // },
-        // "shape": { "base": "storageoptions:block/wood/groundrack" },
-        // "textures": {
-        //     "wood": { "base": "game:block/wood/debarked/{wood}" },
-        //     "nail": { "base": "game:block/metal/tarnished/rusty-iron" }
-        // },
-        // "creativeInventoryTabs": ["general", "decorative", "storageoptions"],
+        "materials": {
+            "wood": { "loadFromProperties": "block/wood", "states": ["aged"] }
+        },
+        "shape": { "base": "game:block/wood/shelf", "selectiveElements": ["lower shelf"] },
+        "textures": {
+            "surface": { "base": "game:block/wood/debarked/{wood}" },
+            "wood2": { "base": "game:block/wood/debarked/{wood}" },
+            "nail": { "base": "game:block/metal/tarnished/rusty-iron" }
+        },
+        "creativeInventoryTabs": ["general", "decorative", "storageoptions"],
         "handbook": { "groupBy": ["shelfone-*"] },
         "inventoryClassName": "shelfone",
         "attributeTransformCode": "onShelfOneTransform"
     },
     "behaviors": [
-        {
-            "name": "StorageOptions.BbName",
-            "properties": {
-                "main": "block-shelf-normal-*",
-                "parts": [" (", "material-{wood}", ")"]
-            }
-        },
-        { "name": "HorizontalAttachable", "properties": { "dropBlockFace": "east" } }
+        { "name": "StorageOptions.BbName", "properties": { "main": "block-shelf-normal-*" } }
+        // { "name": "HorizontalAttachable", "properties": { "dropBlockFace": "east" } }
     ],
-    "shape": {
-        "base": "game:block/wood/shelf",
-        "selectiveElements": ["lower shelf"],
-        "rotateYByType": { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 }
-    },
-    "textures": {
-        "surface": { "base": "game:block/wood/debarked/{wood}" },
-        "wood2": { "base": "game:block/wood/debarked/{wood}" }
-    },
     "blockmaterial": "Wood",
     "lightAbsorption": 0,
     "faceCullMode": "NeverCull",
@@ -65,8 +46,7 @@
         "z1": 0,
         "x2": 1,
         "y2": 0.125,
-        "z2": 0.8125,
-        "rotateYByType": { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 }
+        "z2": 0.8125
     },
     "guiTransform": {
         "origin": { "x": 0.5, "y": -0, "z": 0.5 },
