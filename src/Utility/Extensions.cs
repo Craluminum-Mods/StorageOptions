@@ -13,11 +13,11 @@ public static class Extensions
         if (val != null) obj.Attributes.Token[key] = JToken.FromObject(val);
     }
 
-    public static bool IsGroundRackable(this ItemSlot slot) => slot?.Itemstack?.Collectible?.Attributes?[GroundRackable].AsBool() == true;
     public static bool IsGroundRackable(this CollectibleObject obj) => obj?.Attributes?[GroundRackable].AsBool() == true;
+    public static bool IsGroundRackable(this ItemSlot slot) => slot?.Itemstack?.Collectible.IsGroundRackable() == true;
 
-    public static bool IsShelvableOne(this ItemSlot slot) => slot?.Itemstack?.Collectible?.Attributes?[ShelvableOne].AsBool() == true;
     public static bool IsShelvableOne(this CollectibleObject obj) => obj?.Attributes?[ShelvableOne].AsBool() == true;
+    public static bool IsShelvableOne(this ItemSlot slot) => slot?.Itemstack?.Collectible?.IsGroundRackable() == true;
 
     public static ModelTransform GetTransform(this CollectibleObject obj, Dictionary<string, ModelTransform> transforms)
     {
