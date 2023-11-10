@@ -8,6 +8,7 @@ public class BlockEntityGroundRack : BlockEntityDisplay, IRotatable, IBlockEntit
     private MeshData mesh;
     private float[] mat;
     private Cuboidf[] SelectionBoxes;
+    private Cuboidf[] CollisionBoxes;
 
     public Materials Materials { get; } = new();
     public float MeshAngleRad { get; set; }
@@ -185,5 +186,19 @@ public class BlockEntityGroundRack : BlockEntityDisplay, IRotatable, IBlockEntit
             }
         }
         return SelectionBoxes;
+    }
+
+    public Cuboidf[] GetOrCreateCollisionBoxes()
+    {
+        if (CollisionBoxes == null)
+        {
+            Cuboidf[] _collisionBoxes = Block.CollisionBoxes;
+            CollisionBoxes = new Cuboidf[_collisionBoxes.Length];
+            for (int i = 0; i < _collisionBoxes.Length; i++)
+            {
+                CollisionBoxes[i] = _collisionBoxes[i].RotatedCopy(0f, MeshAngleRad * (180f / (float)Math.PI), 0f, new Vec3d(0.5, 0.5, 0.5));
+            }
+        }
+        return CollisionBoxes;
     }
 }

@@ -126,6 +126,11 @@ public class BlockWithAttributes : Block
         return GetInterface<IBlockEntityCustomShapeTextures>(api.World, pos)?.GetOrCreateSelectionBoxes() ?? base.GetSelectionBoxes(blockAccessor, pos);
     }
 
+    public override Cuboidf[] GetCollisionBoxes(IBlockAccessor blockAccessor, BlockPos pos)
+    {
+        return GetInterface<IBlockEntityCustomShapeTextures>(api.World, pos)?.GetOrCreateCollisionBoxes() ?? base.GetCollisionBoxes(blockAccessor, pos);
+    }
+
     public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel)
     {
         return GetInterface<IBlockEntityCustomShapeTextures>(world, blockSel.Position)?.OnInteract(byPlayer, blockSel)

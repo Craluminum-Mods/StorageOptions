@@ -8,6 +8,8 @@ public interface IBlockEntityCustomShapeTextures
 
     Cuboidf[] GetOrCreateSelectionBoxes();
 
+    Cuboidf[] GetOrCreateCollisionBoxes();
+
     void SetMeshAngleRad(float angleRad) => MeshAngleRad = angleRad;
 
     void OnBlockPlaced(ItemStack byItemStack);
