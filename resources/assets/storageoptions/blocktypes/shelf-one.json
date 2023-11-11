@@ -18,7 +18,7 @@
     },
     "behaviors": [
         { "name": "StorageOptions.BbName", "properties": { "main": "block-shelf-normal-*" } },
-        { "name": "Unstable", "properties": { "attachedToFaces": ["north", "south", "east", "west"] } }
+        { "name": "Unstable", "properties": { "attachedToFaces": ["north", "south", "east", "west", "down"] } }
     ],
     "blockmaterial": "Wood",
     "lightAbsorption": 0,
