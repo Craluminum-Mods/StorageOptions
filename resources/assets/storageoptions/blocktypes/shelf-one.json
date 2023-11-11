@@ -13,7 +13,6 @@
             "nail": { "base": "game:block/metal/tarnished/rusty-iron" }
         },
         "creativeInventoryTabs": ["general", "decorative", "storageoptions"],
-        "handbook": { "groupBy": ["shelfone-*"] },
         "inventoryClassName": "shelfone",
         "attributeTransformCode": "onShelfOneTransform"
     },
