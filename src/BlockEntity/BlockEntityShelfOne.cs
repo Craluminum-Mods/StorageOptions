@@ -153,8 +153,6 @@ public class BlockEntityShelfOne : BlockEntityDisplay, IRotatable, IBlockEntityC
 
         Materials.OutputTranslatedDescription(sb);
 
-        sb.AppendLine();
-
         if (!inventory[0].Empty)
         {
             ItemStack stack = inventory[0].Itemstack;
