@@ -133,7 +133,7 @@ public class BlockWithAttributes : Block
 
     public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel)
     {
-        return GetInterface<IBlockEntityCustomShapeTextures>(world, blockSel.Position)?.OnInteract(byPlayer, blockSel)
+        return GetInterface<IBlockEntityCustomInteraction>(world, blockSel.Position)?.OnInteract(byPlayer, blockSel)
         ?? base.OnBlockInteractStart(world, byPlayer, blockSel);
     }
 

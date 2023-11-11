@@ -1,6 +1,6 @@
 namespace StorageOptions;
 
-public class BlockEntityGroundRack : BlockEntityDisplay, IRotatable, IBlockEntityCustomShapeTextures
+public class BlockEntityGroundRack : BlockEntityDisplay, IRotatable, IBlockEntityCustomShapeTextures, IBlockEntityCustomInteraction
 {
     private readonly InventoryGeneric inventory;
     private const int slotCount = 4;

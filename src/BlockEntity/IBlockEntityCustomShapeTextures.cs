@@ -13,6 +13,4 @@ public interface IBlockEntityCustomShapeTextures
     void SetMeshAngleRad(float angleRad) => MeshAngleRad = angleRad;
 
     void OnBlockPlaced(ItemStack byItemStack);
-
-    bool OnInteract(IPlayer byPlayer, BlockSelection blockSel);
 }
