@@ -29,7 +29,7 @@ public class BlockEntityShelfOne : BlockEntityDisplay, IRotatable, IBlockEntityC
             return;
         }
 
-        IBlockEntityCustomMesh customInterface = Block.GetInterface<IBlockEntityCustomMesh>(Api.World, Pos);
+        IBlockCustomMesh customInterface = Block.GetInterface<IBlockCustomMesh>(Api.World, Pos);
         if (customInterface == null)
         {
             return;

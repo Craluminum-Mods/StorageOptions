@@ -1,6 +1,6 @@
 namespace StorageOptions;
 
-public interface IBlockEntityCustomMesh
+public interface IBlockCustomMesh
 {
     MeshData GetOrCreateMesh(Materials materials, ITexPositionSource overrideTexturesource = null);
 }
