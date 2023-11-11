@@ -11,11 +11,11 @@ public class ItemSlotShelfOne : ItemSlot
 
     public override bool CanTakeFrom(ItemSlot sourceSlot, EnumMergePriority priority = EnumMergePriority.AutoMerge)
     {
-        return sourceSlot.IsShelvableOne() && base.CanTakeFrom(sourceSlot, priority);
+        return sourceSlot.IsStorable(ShelvableOne) && base.CanTakeFrom(sourceSlot, priority);
     }
 
     public override bool CanHold(ItemSlot fromSlot)
     {
-        return fromSlot.IsShelvableOne() && base.CanHold(fromSlot);
+        return fromSlot.IsStorable(ShelvableOne) && base.CanHold(fromSlot);
     }
 }

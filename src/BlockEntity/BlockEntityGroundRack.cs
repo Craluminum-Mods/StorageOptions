@@ -16,6 +16,7 @@ public class BlockEntityGroundRack : BlockEntityDisplay, IRotatable, IBlockEntit
     public override InventoryBase Inventory => inventory;
     public override string InventoryClassName => Block?.Attributes?["inventoryClassName"].AsString();
     public override string AttributeTransformCode => Block?.Attributes?["attributeTransformCode"].AsString();
+    public string AttributeCode => Block?.Attributes?["attributeCode"].AsString();
 
     public BlockEntityGroundRack()
     {
@@ -64,7 +65,7 @@ public class BlockEntityGroundRack : BlockEntityDisplay, IRotatable, IBlockEntit
         {
             return TryTake(byPlayer, blockSel);
         }
-        if (slot.IsGroundRackable())
+        if (slot.IsStorable(AttributeCode))
         {
             AssetLocation sound = slot.Itemstack?.Block?.Sounds?.Place;
             if (TryPut(slot, blockSel))

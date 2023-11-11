@@ -14,7 +14,8 @@
         "creativeInventoryTabs": ["general", "decorative", "storageoptions"],
         "handbook": { "groupBy": ["groundrack"] },
         "inventoryClassName": "groundrack",
-        "attributeTransformCode": "onGroundRackTransform"
+        "attributeTransformCode": "onGroundRackTransform",
+        "attributeCode": "groundrackable"
     },
     "behaviors": [{ "name": "Unstable" }],
     "blockmaterial": "Wood",

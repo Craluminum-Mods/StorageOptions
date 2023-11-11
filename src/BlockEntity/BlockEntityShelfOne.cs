@@ -16,6 +16,7 @@ public class BlockEntityShelfOne : BlockEntityDisplay, IRotatable, IBlockEntityC
     public override InventoryBase Inventory => inventory;
     public override string InventoryClassName => Block?.Attributes?["inventoryClassName"].AsString();
     public override string AttributeTransformCode => Block?.Attributes?["attributeTransformCode"].AsString();
+    public string AttributeCode => Block?.Attributes?["attributeCode"].AsString();
 
     public BlockEntityShelfOne()
     {
@@ -64,7 +65,7 @@ public class BlockEntityShelfOne : BlockEntityDisplay, IRotatable, IBlockEntityC
         {
             return TryTake(byPlayer, blockSel);
         }
-        if (slot.IsShelvableOne())
+        if (slot.IsStorable(AttributeCode))
         {
             AssetLocation sound = slot.Itemstack?.Block?.Sounds?.Place;
             if (TryPut(slot, blockSel))

@@ -13,11 +13,8 @@ public static class Extensions
         if (val != null) obj.Attributes.Token[key] = JToken.FromObject(val);
     }
 
-    public static bool IsGroundRackable(this CollectibleObject obj) => obj.Attributes?[GroundRackable].AsBool() == true;
-    public static bool IsGroundRackable(this ItemSlot slot) => slot.Itemstack.Collectible.IsGroundRackable() == true;
-
-    public static bool IsShelvableOne(this CollectibleObject obj) => obj.Attributes?[ShelvableOne].AsBool() == true;
-    public static bool IsShelvableOne(this ItemSlot slot) => slot.Itemstack.Collectible.IsShelvableOne();
+    public static bool IsStorable(this CollectibleObject obj, string attributeCode) => obj.Attributes?[attributeCode].AsBool() == true;
+    public static bool IsStorable(this ItemSlot slot, string attributeCode) => slot.Itemstack.Collectible.IsStorable(attributeCode) == true;
 
     public static ModelTransform GetTransform(this CollectibleObject obj, Dictionary<string, ModelTransform> transforms)
     {
@@ -106,8 +103,8 @@ public static class Extensions
         List<ItemStack> list = new();
         foreach (CollectibleObject obj in capi.World.Collectibles)
         {
-            if ((option is EnumStorageOption.GroundRackable && !obj.IsGroundRackable())
-                || (option is EnumStorageOption.ShelvableOne && !obj.IsShelvableOne()))
+            if ((option is EnumStorageOption.GroundRackable && !obj.IsStorable(GroundRackable))
+                || (option is EnumStorageOption.ShelvableOne && !obj.IsStorable(ShelvableOne)))
             {
                 continue;
             }

@@ -14,7 +14,8 @@
         },
         "creativeInventoryTabs": ["general", "decorative", "storageoptions"],
         "inventoryClassName": "shelfone",
-        "attributeTransformCode": "onShelfOneTransform"
+        "attributeTransformCode": "onShelfOneTransform",
+        "attributeCode": "shelvableone"
     },
     "behaviors": [
         { "name": "StorageOptions.BbName", "properties": { "main": "block-shelf-normal-*" } },

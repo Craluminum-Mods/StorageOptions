@@ -11,11 +11,11 @@ public class ItemSlotGroundRack : ItemSlot
 
     public override bool CanTakeFrom(ItemSlot sourceSlot, EnumMergePriority priority = EnumMergePriority.AutoMerge)
     {
-        return sourceSlot.IsGroundRackable() && base.CanTakeFrom(sourceSlot, priority);
+        return sourceSlot.IsStorable(GroundRackable) && base.CanTakeFrom(sourceSlot, priority);
     }
 
     public override bool CanHold(ItemSlot fromSlot)
     {
-        return fromSlot.IsGroundRackable() && base.CanHold(fromSlot);
+        return fromSlot.IsStorable(GroundRackable) && base.CanHold(fromSlot);
     }
 }
