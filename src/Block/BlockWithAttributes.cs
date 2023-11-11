@@ -1,6 +1,6 @@
 namespace StorageOptions;
 
-public class BlockWithAttributes : Block
+public class BlockWithAttributes : Block, IBlockEntityCustomMesh
 {
     private string[] woodTypes;
 

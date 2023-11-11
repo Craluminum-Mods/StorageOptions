@@ -24,13 +24,21 @@ public class BlockEntityGroundRack : BlockEntityDisplay, IRotatable, IBlockEntit
 
     private void Init()
     {
-        if (Api != null && Api.Side == EnumAppSide.Client && Materials.Full && Block is BlockWithAttributes block)
+        if (Api == null || Api.Side != EnumAppSide.Client || !Materials.Full)
         {
-            mesh = block.GetOrCreateMesh(Materials);
-            mat = Matrixf.Create().Translate(0.5f, 0.5f, 0.5f).RotateY(MeshAngleRad)
-                .Translate(-0.5f, -0.5f, -0.5f)
-                .Values;
+            return;
         }
+
+        IBlockEntityCustomMesh customInterface = Block.GetInterface<IBlockEntityCustomMesh>(Api.World, Pos);
+        if (customInterface == null)
+        {
+            return;
+        }
+
+        mesh = customInterface.GetOrCreateMesh(Materials);
+        mat = Matrixf.Create().Translate(0.5f, 0.5f, 0.5f).RotateY(MeshAngleRad)
+            .Translate(-0.5f, -0.5f, -0.5f)
+            .Values;
     }
 
     public override void Initialize(ICoreAPI api)
