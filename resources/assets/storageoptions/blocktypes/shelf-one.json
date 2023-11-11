@@ -17,8 +17,8 @@
         "attributeTransformCode": "onShelfOneTransform"
     },
     "behaviors": [
-        { "name": "StorageOptions.BbName", "properties": { "main": "block-shelf-normal-*" } }
-        // { "name": "HorizontalAttachable", "properties": { "dropBlockFace": "east" } }
+        { "name": "StorageOptions.BbName", "properties": { "main": "block-shelf-normal-*" } },
+        { "name": "Unstable", "properties": { "attachedToFaces": ["north", "south", "east", "west"] } }
     ],
     "blockmaterial": "Wood",
     "lightAbsorption": 0,
