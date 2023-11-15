@@ -54,7 +54,7 @@ public class BlockEntityGroundRack : BlockEntityDisplay, IRotatable, IBlockEntit
     public override void OnBlockPlaced(ItemStack byItemStack = null)
     {
         base.OnBlockPlaced(byItemStack);
-        Materials.Wood = byItemStack?.Attributes.GetOrAddTreeAttribute("materials").GetString("wood");
+        Materials.FromTreeAttribute(byItemStack?.Attributes.GetOrAddTreeAttribute("materials"));
         Init();
     }
 
@@ -143,14 +143,14 @@ public class BlockEntityGroundRack : BlockEntityDisplay, IRotatable, IBlockEntit
     public override void ToTreeAttributes(ITreeAttribute tree)
     {
         base.ToTreeAttributes(tree);
-        tree.GetOrAddTreeAttribute("materials").SetString("wood", Materials.Wood);
+        Materials.ToTreeAttribute(tree.GetOrAddTreeAttribute("materials"));
         tree.SetFloat("meshAngleRad", MeshAngleRad);
     }
 
     public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving)
     {
         base.FromTreeAttributes(tree, worldForResolving);
-        Materials.Wood = tree.GetOrAddTreeAttribute("materials").GetString("wood");
+        Materials.FromTreeAttribute(tree.GetOrAddTreeAttribute("materials"));
         MeshAngleRad = tree.GetFloat("meshAngleRad");
         Init();
     }
@@ -166,7 +166,7 @@ public class BlockEntityGroundRack : BlockEntityDisplay, IRotatable, IBlockEntit
     {
         int i = forPlayer.CurrentBlockSelection.SelectionBoxIndex;
 
-        Materials.OutputTranslatedDescription(sb);
+        Materials.OutputTranslatedDescription(sb, Block);
 
         ItemSlot slot = inventory[i];
         if (!slot.Empty)

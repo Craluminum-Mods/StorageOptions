@@ -54,7 +54,7 @@ public class BlockEntityShelfOne : BlockEntityDisplay, IRotatable, IBlockEntityC
     public override void OnBlockPlaced(ItemStack byItemStack = null)
     {
         base.OnBlockPlaced(byItemStack);
-        Materials.Wood = byItemStack?.Attributes.GetOrAddTreeAttribute("materials").GetString("wood");
+        Materials.FromTreeAttribute(byItemStack?.Attributes.GetOrAddTreeAttribute("materials"));
         Init();
     }
 
@@ -137,14 +137,14 @@ public class BlockEntityShelfOne : BlockEntityDisplay, IRotatable, IBlockEntityC
     public override void ToTreeAttributes(ITreeAttribute tree)
     {
         base.ToTreeAttributes(tree);
-        tree.GetOrAddTreeAttribute("materials").SetString("wood", Materials.Wood);
+        Materials.ToTreeAttribute(tree.GetOrAddTreeAttribute("materials"));
         tree.SetFloat("meshAngleRad", MeshAngleRad);
     }
 
     public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving)
     {
         base.FromTreeAttributes(tree, worldForResolving);
-        Materials.Wood = tree.GetOrAddTreeAttribute("materials").GetString("wood");
+        Materials.FromTreeAttribute(tree.GetOrAddTreeAttribute("materials"));
         MeshAngleRad = tree.GetFloat("meshAngleRad");
         Init();
     }
@@ -160,7 +160,7 @@ public class BlockEntityShelfOne : BlockEntityDisplay, IRotatable, IBlockEntityC
     {
         base.GetBlockInfo(forPlayer, sb);
 
-        Materials.OutputTranslatedDescription(sb);
+        Materials.OutputTranslatedDescription(sb, Block);
 
         if (!inventory[0].Empty)
         {

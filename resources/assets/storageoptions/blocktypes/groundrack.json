@@ -6,6 +6,9 @@
         "materials": {
             "wood": { "loadFromProperties": "block/wood", "states": ["aged"] }
         },
+        "langKeys": {
+            "wood": ["\n", "blockmaterial-Wood", ":", "\t", "material-{wood}"]
+        },
         "shape": { "base": "storageoptions:block/wood/groundrack" },
         "textures": {
             "wood": { "base": "game:block/wood/debarked/{wood}" },

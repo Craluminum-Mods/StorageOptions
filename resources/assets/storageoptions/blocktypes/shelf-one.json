@@ -6,6 +6,9 @@
         "materials": {
             "wood": { "loadFromProperties": "block/wood", "states": ["aged"] }
         },
+        "langKeys": {
+            "wood": ["\n", "blockmaterial-Wood", ":", "\t", "material-{wood}"]
+        },
         "shape": { "base": "game:block/wood/shelf", "selectiveElements": ["lower shelf"] },
         "textures": {
             "surface": { "base": "game:block/wood/debarked/{wood}" },

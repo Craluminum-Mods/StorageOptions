@@ -2,7 +2,7 @@ namespace StorageOptions;
 
 public class BlockWithAttributes : Block, IBlockCustomMesh
 {
-    private string[] woodTypes;
+    private Dictionary<string, List<string>> materials = new();
 
     private Dictionary<string, CompositeTexture> textures;
     private CompositeShape cshape;
@@ -18,14 +18,13 @@ public class BlockWithAttributes : Block, IBlockCustomMesh
         cshape = Attributes["shape"].AsObject<CompositeShape>();
         textures = Attributes["textures"].AsObject<Dictionary<string, CompositeTexture>>();
 
-        woodTypes = api.ResolveVariants(this, "wood");
-
-        List<JsonItemStack> stacks = new();
-        foreach (string wood in woodTypes)
+        var _materials = Attributes["materials"].AsObject<Dictionary<string, object>>().Keys;
+        foreach (string key in _materials)
         {
-            JsonItemStack jstack = api.CreateJStack(this, $"{{ \"materials\": {{ \"wood\": \"{wood}\" }} }}");
-            stacks.Add(jstack);
+            materials.Add(key, api.ResolveVariants(this, key));
         }
+
+        List<JsonItemStack> stacks = this.CreateJsonItemStacks(api, materials.GetCombinationsContainingAllKeys());
 
         if (Attributes["creativeInventoryTabs"].Exists)
         {
@@ -49,8 +48,10 @@ public class BlockWithAttributes : Block, IBlockCustomMesh
         {
             mesh = new MeshData(4, 3);
             CompositeShape rcshape = cshape.Clone();
-
-            rcshape.Base.Path = rcshape.Base.Path.Replace("{wood}", materials.Wood); // should be {type}
+            // foreach ((string _key, string val) in materials.Elements)
+            // {
+            //     rcshape.Base.Path = rcshape.Base.Path.Replace($"{{{_key}}}", val); // should be {type}
+            // }
             rcshape.Base.WithPathAppendixOnce(".json").WithPathPrefixOnce("shapes/");
             Shape shape = capi.Assets.TryGet(rcshape.Base)?.ToObject<Shape>();
             ITexPositionSource texSource = overrideTexturesource;
@@ -61,7 +62,10 @@ public class BlockWithAttributes : Block, IBlockCustomMesh
                 foreach (KeyValuePair<string, CompositeTexture> val in textures)
                 {
                     CompositeTexture ctex = val.Value.Clone();
-                    ctex.Base.Path = ctex.Base.Path.Replace("{wood}", materials.Wood);
+                    foreach ((string _key, string _val) in materials.Elements)
+                    {
+                        ctex.Base.Path = ctex.Base.Path.Replace($"{{{_key}}}", _val);
+                    }
                     ctex.Bake(capi.Assets);
                     stexSource.textures[val.Key] = ctex;
                 }
@@ -83,8 +87,10 @@ public class BlockWithAttributes : Block, IBlockCustomMesh
     {
         base.OnBeforeRender(capi, itemstack, target, ref renderinfo);
         Dictionary<string, MultiTextureMeshRef> meshRefs = ObjectCacheUtil.GetOrCreate(capi, ToString() + "MeshesInventory", () => new Dictionary<string, MultiTextureMeshRef>());
-        string wood = itemstack.Attributes.GetOrAddTreeAttribute("materials").GetString("wood");
-        Materials materials = new(wood);
+
+        Materials materials = new();
+        materials.FromTreeAttribute(itemstack.Attributes.GetOrAddTreeAttribute("materials"));
+
         string key = materials.ToString();
 
         if (string.IsNullOrEmpty(key))
@@ -104,8 +110,9 @@ public class BlockWithAttributes : Block, IBlockCustomMesh
     {
         base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
 
-        string wood = inSlot.Itemstack.Attributes.GetOrAddTreeAttribute("materials").GetString("wood");
-        new Materials(wood).OutputTranslatedDescription(dsc);
+        Materials materials = new();
+        materials.FromTreeAttribute(inSlot.Itemstack.Attributes.GetOrAddTreeAttribute("materials"));
+        materials.OutputTranslatedDescription(dsc, inSlot.Itemstack.Collectible);
     }
 
     public override ItemStack[] GetDrops(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier = 1f)
@@ -161,7 +168,7 @@ public class BlockWithAttributes : Block, IBlockCustomMesh
         IBlockEntityCustomShapeTextures customInterface = GetInterface<IBlockEntityCustomShapeTextures>(world, pos);
         if (customInterface != null && customInterface?.Materials.Full == true)
         {
-            stack.Attributes.GetOrAddTreeAttribute("materials").SetString("wood", customInterface.Materials.Wood);
+            customInterface.Materials.ToTreeAttribute(stack.Attributes.GetOrAddTreeAttribute("materials"));
         }
         return stack;
     }

@@ -61,7 +61,7 @@ public static class Extensions
         return jstack;
     }
 
-    public static string[] ResolveVariants(this ICoreAPI api, CollectibleObject obj, string materialAttr)
+    public static List<string> ResolveVariants(this ICoreAPI api, CollectibleObject obj, string materialAttr)
     {
         RegistryObjectVariantGroup grp = obj.Attributes["materials"][materialAttr].AsObject<RegistryObjectVariantGroup>();
         string[] materials = grp.States;
@@ -73,7 +73,7 @@ public static class Extensions
                 .WithPathAppendixOnce(".json"))?.ToObject<StandardWorldProperty>()).Variants.Select((p) => p.Code.Path).ToArray().Append(materials);
         }
 
-        return materials;
+        return materials.ToList();
     }
 
     public static WorldInteraction[] GetOrCreateToolrackInteractions(this ICoreClientAPI capi, string key, EnumStorageOption option)
