@@ -54,7 +54,7 @@ public class BlockEntityGroundRack : BlockEntityDisplay, IRotatable, IBlockEntit
     public override void OnBlockPlaced(ItemStack byItemStack = null)
     {
         base.OnBlockPlaced(byItemStack);
-        Materials.FromTreeAttribute(byItemStack?.Attributes.GetOrAddTreeAttribute("materials"));
+        Materials.FromTreeAttribute(byItemStack?.Attributes);
         Init();
     }
 
@@ -143,14 +143,14 @@ public class BlockEntityGroundRack : BlockEntityDisplay, IRotatable, IBlockEntit
     public override void ToTreeAttributes(ITreeAttribute tree)
     {
         base.ToTreeAttributes(tree);
-        Materials.ToTreeAttribute(tree.GetOrAddTreeAttribute("materials"));
+        Materials.ToTreeAttribute(tree);
         tree.SetFloat("meshAngleRad", MeshAngleRad);
     }
 
     public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving)
     {
         base.FromTreeAttributes(tree, worldForResolving);
-        Materials.FromTreeAttribute(tree.GetOrAddTreeAttribute("materials"));
+        Materials.FromTreeAttribute(tree);
         MeshAngleRad = tree.GetFloat("meshAngleRad");
         Init();
     }

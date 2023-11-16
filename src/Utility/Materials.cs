@@ -35,20 +35,19 @@ public class Materials
 
     public void FromTreeAttribute(ITreeAttribute tree)
     {
-        foreach (var keyVal in tree)
+        ITreeAttribute materialsTree = tree.GetOrAddTreeAttribute("materials");
+        foreach (var keyVal in materialsTree.Where(keyVal => !Elements.ContainsKey(keyVal.Key)))
         {
-            if (!Elements.ContainsKey(keyVal.Key))
-            {
-                Elements.Add(keyVal.Key, tree.GetString(keyVal.Key));
-            }
+            Elements.Add(keyVal.Key, materialsTree.GetString(keyVal.Key));
         }
     }
 
     public void ToTreeAttribute(ITreeAttribute tree)
     {
+        ITreeAttribute materialsTree = tree.GetOrAddTreeAttribute("materials");
         foreach ((string key, string val) in Elements)
         {
-            tree.SetString(key, val);
+            materialsTree.SetString(key, val);
         }
     }
 

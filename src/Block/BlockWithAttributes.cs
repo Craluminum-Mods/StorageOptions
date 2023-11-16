@@ -89,7 +89,7 @@ public class BlockWithAttributes : Block, IBlockCustomMesh
         Dictionary<string, MultiTextureMeshRef> meshRefs = ObjectCacheUtil.GetOrCreate(capi, ToString() + "MeshesInventory", () => new Dictionary<string, MultiTextureMeshRef>());
 
         Materials materials = new();
-        materials.FromTreeAttribute(itemstack.Attributes.GetOrAddTreeAttribute("materials"));
+        materials.FromTreeAttribute(itemstack.Attributes);
 
         string key = materials.ToString();
 
@@ -111,7 +111,7 @@ public class BlockWithAttributes : Block, IBlockCustomMesh
         base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
 
         Materials materials = new();
-        materials.FromTreeAttribute(inSlot.Itemstack.Attributes.GetOrAddTreeAttribute("materials"));
+        materials.FromTreeAttribute(inSlot.Itemstack.Attributes);
         materials.OutputTranslatedDescription(dsc, inSlot.Itemstack.Collectible);
     }
 
@@ -168,7 +168,7 @@ public class BlockWithAttributes : Block, IBlockCustomMesh
         IBlockEntityCustomShapeTextures customInterface = GetInterface<IBlockEntityCustomShapeTextures>(world, pos);
         if (customInterface != null && customInterface?.Materials.Full == true)
         {
-            customInterface.Materials.ToTreeAttribute(stack.Attributes.GetOrAddTreeAttribute("materials"));
+            customInterface.Materials.ToTreeAttribute(stack.Attributes);
         }
         return stack;
     }
