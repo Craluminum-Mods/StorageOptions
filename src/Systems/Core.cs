@@ -1,4 +1,5 @@
 global using static StorageOptions.Constants;
+global using HarmonyLib;
 global using Newtonsoft.Json.Linq;
 global using System;
 global using System.Collections.Generic;
@@ -12,6 +13,7 @@ global using Vintagestory.API.MathTools;
 global using Vintagestory.API.Util;
 global using Vintagestory.Client.NoObf;
 global using Vintagestory.GameContent;
+global using Vintagestory.ServerMods;
 
 [assembly: ModInfo(name: "Storage Options", modID: "storageoptions")]
 

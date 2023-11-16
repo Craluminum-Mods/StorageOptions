@@ -1,5 +1,3 @@
-using HarmonyLib;
-
 namespace StorageOptions;
 
 public class Materials

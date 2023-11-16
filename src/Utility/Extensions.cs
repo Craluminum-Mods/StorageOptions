@@ -1,5 +1,3 @@
-using Vintagestory.ServerMods;
-
 namespace StorageOptions;
 
 public static class Extensions
