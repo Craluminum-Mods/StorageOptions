@@ -74,7 +74,7 @@ public class BlockWithAttributes : Block, IBlockCustomMesh
             {
                 return mesh;
             }
-            capi.Tesselator.TesselateShape("Groundrack block", shape, out mesh, texSource, null, 0, 0, 0, selectiveElements: cshape.SelectiveElements);
+            capi.Tesselator.TesselateShape("block with attributes", shape, out mesh, texSource, null, 0, 0, 0, selectiveElements: cshape.SelectiveElements);
             if (overrideTexturesource == null)
             {
                 cMeshes[key] = mesh;
