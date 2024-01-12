@@ -7,7 +7,7 @@
             "wood": { "loadFromProperties": "block/wood", "states": ["aged"] }
         },
         "langKeys": {
-            "wood": ["\n", "blockmaterial-Wood", ":", "\t", "material-{wood}"]
+            "wood": ["\n", "blockmaterial-Wood", ":", "\t", "material-{wood}", "\n"]
         },
         "shape": { "base": "storageoptions:block/wood/groundrack" },
         "textures": {

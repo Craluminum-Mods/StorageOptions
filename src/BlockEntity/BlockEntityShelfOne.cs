@@ -1,6 +1,6 @@
 namespace StorageOptions;
 
-public class BlockEntityShelfOne : BlockEntityDisplay, IRotatable, IBlockEntityCustomShapeTextures, IBlockEntityCustomInteraction
+public class BlockEntityShelfOne : BlockEntityDisplay, IBlockEntityCustomShapeTextures, IBlockEntityCustomInteraction
 {
     private readonly InventoryGeneric inventory;
     private const int slotCount = 1;
