@@ -30,6 +30,10 @@
             <HintPath>$(VINTAGE_STORY)\Lib\Newtonsoft.Json.dll</HintPath>
             <Private>false</Private>
         </Reference>
+        <Reference Include="0Harmony">
+            <HintPath>$(VINTAGE_STORY)\Lib\0Harmony.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)' == 'ReleaseToMods'">
@@ -41,6 +45,6 @@
 	</ItemGroup>
 	
 	<Target Name="Package" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' == 'ReleaseToMods'">
-		<ZipDirectory DestinationFile="$(VINTAGE_STORY_DATA)/Mods/$(TargetName)-v1.0.2.zip" SourceDirectory="$(TargetDir)" Overwrite="true" />
+		<ZipDirectory DestinationFile="$(VINTAGE_STORY_DATA)/Mods/$(TargetName)-v2.0.0.zip" SourceDirectory="$(TargetDir)" Overwrite="true" />
 	</Target>
 </Project>
