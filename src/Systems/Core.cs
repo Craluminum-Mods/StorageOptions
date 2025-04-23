@@ -72,7 +72,7 @@ public class Core : ModSystem
             obj.EnsureAttributesNotNull();
             obj.SetAttribute(GroundRackable, true);
 
-            if (transform != null)
+            if (obj.Attributes?.KeyExists(OnGroundRackTransform) == false && transform != null)
             {
                 obj.SetAttribute(OnGroundRackTransform, transform);
             }
@@ -90,7 +90,7 @@ public class Core : ModSystem
             obj.EnsureAttributesNotNull();
             obj.SetAttribute(ShelvableOne, true);
 
-            if (transform != null)
+            if (obj.Attributes?.KeyExists(OnShelfOneTransform) == false && transform != null)
             {
                 obj.SetAttribute(OnShelfOneTransform, transform);
             }
