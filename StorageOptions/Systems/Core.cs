@@ -13,8 +13,6 @@ global using Vintagestory.Client.NoObf;
 global using Vintagestory.GameContent;
 global using static StorageOptions.Constants;
 
-[assembly: ModInfo(name: "Storage Options", modID: "storageoptions")]
-
 namespace StorageOptions;
 
 public class Core : ModSystem
@@ -43,8 +41,8 @@ public class Core : ModSystem
 
     public override void AssetsLoaded(ICoreAPI api)
     {
-        Transformations.OnGroundRackTransform = api.LoadAsset<Dictionary<string, ModelTransform>>("storageoptions:config/transformations/groundrack.json");
-        Transformations.OnShelfOneTransform = api.LoadAsset<Dictionary<string, ModelTransform>>("storageoptions:config/transformations/shelfone.json");
+        Transformations.OnGroundRackTransform = api.Assets.Get<Dictionary<string, ModelTransform>>("storageoptions:config/transformations/groundrack.json");
+        Transformations.OnShelfOneTransform = api.Assets.Get<Dictionary<string, ModelTransform>>("storageoptions:config/transformations/shelfone.json");
     }
 
     public override void AssetsFinalize(ICoreAPI api)
@@ -55,7 +53,16 @@ public class Core : ModSystem
             PatchShelvableOne(obj);
         }
 
+        Transformations.OnGroundRackTransform.Clear();
+        Transformations.OnShelfOneTransform.Clear();
+
         Mod.Logger.Event("started '{0}' mod", Mod.Info.Name);
+    }
+
+    public override void Dispose()
+    {
+        Transformations.OnGroundRackTransform.Clear();
+        Transformations.OnShelfOneTransform.Clear();
     }
 
     private void PatchGroundRackable(CollectibleObject obj)
