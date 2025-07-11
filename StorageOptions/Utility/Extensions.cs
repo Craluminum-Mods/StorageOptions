@@ -11,11 +11,11 @@ public static class Extensions
         if (val != null) obj.Attributes.Token[key] = JToken.FromObject(val);
     }
 
-    public static bool IsGroundRackable(this ItemSlot slot) => slot?.Itemstack?.Collectible?.Attributes?[GroundRackable].AsBool() == true;
-    public static bool IsGroundRackable(this CollectibleObject obj) => obj?.Attributes?[GroundRackable].AsBool() == true;
+    public static bool IsGroundRackable(this ItemSlot slot) => slot?.Itemstack?.ItemAttributes?.IsTrue(GroundRackable) == true;
+    public static bool IsGroundRackable(this CollectibleObject obj) => obj?.Attributes?.IsTrue(GroundRackable) == true;
 
-    public static bool IsShelvableOne(this ItemSlot slot) => slot?.Itemstack?.Collectible?.Attributes?[ShelvableOne].AsBool() == true;
-    public static bool IsShelvableOne(this CollectibleObject obj) => obj?.Attributes?[ShelvableOne].AsBool() == true;
+    public static bool IsShelvableOne(this ItemSlot slot) => slot?.Itemstack?.ItemAttributes?.IsTrue(ShelvableOne) == true;
+    public static bool IsShelvableOne(this CollectibleObject obj) => obj?.Attributes?.IsTrue(ShelvableOne) == true;
 
     public static ModelTransform GetTransform(this CollectibleObject obj, Dictionary<string, ModelTransform> transforms)
     {
@@ -79,29 +79,5 @@ public static class Extensions
         }
 
         return list;
-    }
-
-    public static string ConstructName(this string bhMain, List<string> bhParts = null)
-    {
-        StringBuilder sb = new();
-
-        if (string.IsNullOrEmpty(bhMain))
-        {
-            return sb.ToString();
-        }
-
-        sb.Append(Lang.GetMatchingIfExists(bhMain));
-
-        if (bhParts?.Count == 0)
-        {
-            return sb.ToString();
-        }
-
-        foreach (string part in bhParts)
-        {
-            sb.Append(Lang.GetMatchingIfExists(part) ?? part);
-        }
-
-        return sb.ToString();
     }
 }

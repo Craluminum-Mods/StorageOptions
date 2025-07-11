@@ -23,7 +23,6 @@ public class Core : ModSystem
 
     public override void Start(ICoreAPI api)
     {
-        base.Start(api);
         api.RegisterBlockBehaviorClass("StorageOptions.BbName", typeof(BlockBehaviorName));
         api.RegisterBlockClass("StorageOptions.BlockGroundRack", typeof(BlockGroundRack));
         api.RegisterBlockClass("StorageOptions.BlockShelfOne", typeof(BlockShelfOne));
@@ -33,8 +32,6 @@ public class Core : ModSystem
 
     public override void StartClientSide(ICoreClientAPI api)
     {
-        base.StartClientSide(api);
-
         foreach (TransformConfig config in TransformConfigs)
         {
             if (!GuiDialogTransformEditor.extraTransforms.Contains(config))
