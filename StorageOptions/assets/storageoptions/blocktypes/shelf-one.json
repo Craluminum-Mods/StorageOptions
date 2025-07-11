@@ -16,8 +16,7 @@
         {
             "name": "StorageOptions.BbName",
             "properties": {
-                "main": "block-shelf-normal-*",
-                "parts": [" (", "material-{wood}", ")"]
+                "parts": ["block-shelf-normal-*", " (", "material-{wood}", ")"]
             }
         },
         { "name": "HorizontalAttachable", "properties": { "dropBlockFace": "east" } }

@@ -16,8 +16,7 @@
         {
             "name": "StorageOptions.BbName",
             "properties": {
-                "main": "storageoptions:block-groundrack-*",
-                "parts": [" (", "material-{wood}", ")"]
+                "parts": ["storageoptions:block-groundrack-*", " (", "material-{wood}", ")"]
             }
         },
         { "name": "NWOrientable" },

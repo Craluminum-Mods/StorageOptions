@@ -2,38 +2,31 @@ namespace StorageOptions;
 
 public class BlockBehaviorName : BlockBehavior
 {
-    private string main;
     private List<string> parts;
 
-    public BlockBehaviorName(Block block) : base(block)
-    {
-    }
+    public BlockBehaviorName(Block block) : base(block) { }
 
     public override void Initialize(JsonObject properties)
     {
         base.Initialize(properties);
 
-        main = properties["main"].AsString();
         parts = properties["parts"].AsObject<List<string>>();
-    }
-
-    public override void GetPlacedBlockName(StringBuilder sb, IWorldAccessor world, BlockPos pos)
-    {
-        string name = main.ConstructName(parts);
-        if (!string.IsNullOrEmpty(name))
+        if (parts != null && parts.Any())
         {
-            sb.Clear();
-            sb.Append(name);
+            parts = parts.Select(x => Lang.GetMatching(x)).ToList();
         }
     }
 
-    public override void GetHeldItemName(StringBuilder sb, ItemStack itemStack)
+    public override void GetPlacedBlockName(StringBuilder sb, IWorldAccessor world, BlockPos pos) => ConstructName(sb);
+
+    public override void GetHeldItemName(StringBuilder sb, ItemStack itemStack) => ConstructName(sb);
+
+    private void ConstructName(StringBuilder sb)
     {
-        string name = main.ConstructName(parts);
-        if (!string.IsNullOrEmpty(name))
+        if (parts != null && parts.Any())
         {
             sb.Clear();
-            sb.Append(name);
+            sb.Append(string.Join("", parts));
         }
     }
 }
