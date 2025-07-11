@@ -1,4 +1,3 @@
-global using static StorageOptions.Constants;
 global using Newtonsoft.Json.Linq;
 global using System;
 global using System.Collections.Generic;
@@ -12,6 +11,7 @@ global using Vintagestory.API.MathTools;
 global using Vintagestory.API.Util;
 global using Vintagestory.Client.NoObf;
 global using Vintagestory.GameContent;
+global using static StorageOptions.Constants;
 
 [assembly: ModInfo(name: "Storage Options", modID: "storageoptions")]
 
@@ -58,7 +58,7 @@ public class Core : ModSystem
             PatchShelvableOne(obj);
         }
 
-        api.World.Logger.Event("started '{0}' mod", Mod.Info.Name);
+        Mod.Logger.Event("started '{0}' mod", Mod.Info.Name);
     }
 
     private void PatchGroundRackable(CollectibleObject obj)
