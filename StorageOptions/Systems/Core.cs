@@ -62,7 +62,7 @@ public class Core : ModSystem
     {
         ModelTransform transform = obj.GetTransform(Transformations.OnGroundRackTransform);
 
-        if (WildcardUtil.Match(GroundRackableCodes, obj.Code.ToString()) || GroundRackableTypes.Contains(obj.GetType()) || obj.Tool != null)
+        if (WildcardUtil.Match(GroundRackableCodes, obj.Code) || GroundRackableTypes.Contains(obj.GetType()) || obj.Tool != null)
         {
             // obj.AddToCreativeInv(tab: GroundRackable); // for testing
 
@@ -80,7 +80,7 @@ public class Core : ModSystem
     {
         ModelTransform transform = obj.GetTransform(Transformations.OnShelfOneTransform);
 
-        if (WildcardUtil.Match(ShelvableOneCodes, obj.Code.ToString()) || ShelvableOneTypes.Contains(obj.GetType()) || obj?.Attributes?.KeyExists("backpack") == true)
+        if (WildcardUtil.Match(ShelvableOneCodes, obj.Code) || ShelvableOneTypes.Contains(obj.GetType()) || obj?.Attributes?.KeyExists("backpack") == true)
         {
             // obj.AddToCreativeInv(tab: ShelvableOne); // for testing
 
