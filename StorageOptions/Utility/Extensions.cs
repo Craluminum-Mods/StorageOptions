@@ -2,8 +2,6 @@ namespace StorageOptions;
 
 public static class Extensions
 {
-    public static T LoadAsset<T>(this ICoreAPI api, string path) => api.Assets.Get(new AssetLocation(path)).ToObject<T>();
-
     public static void EnsureAttributesNotNull(this CollectibleObject obj) => obj.Attributes ??= new JsonObject(new JObject());
 
     public static void SetAttribute(this CollectibleObject obj, string key, object val)
@@ -19,11 +17,14 @@ public static class Extensions
 
     public static ModelTransform GetTransform(this CollectibleObject obj, Dictionary<string, ModelTransform> transforms)
     {
-        foreach (KeyValuePair<string, ModelTransform> _transform in transforms)
+        string code = obj.Code;
+        if (code == null) return null;
+
+        foreach ((string key, ModelTransform transform) in transforms)
         {
-            if (WildcardUtil.Match(_transform.Key, obj.Code.ToString()))
+            if (WildcardUtil.Match(key, code))
             {
-                return _transform.Value;
+                return transform;
             }
         }
 
