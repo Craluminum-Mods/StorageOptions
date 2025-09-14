@@ -1,6 +1,6 @@
 namespace StorageOptions;
 
-public class BlockShelfOne : Block
+public class BlockShelfOne : BlockGeneric
 {
     private WorldInteraction[] interactions;
 

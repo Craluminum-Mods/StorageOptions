@@ -7,7 +7,7 @@
         "width": 2,
         "height": 2,
         "recipeGroup": 1,
-        "output": { "type": "block", "code": "shelfone-{wood}-east" }
+        "output": { "type": "block", "code": "shelfone-east", "attributes": { "types": { "wood": "{wood}" } } }
     },
     {
         "ingredientPattern": "P_,_P",
@@ -17,6 +17,6 @@
         "width": 2,
         "height": 2,
         "recipeGroup": 2,
-        "output": { "type": "block", "code": "shelfone-{wood}-east" }
+        "output": { "type": "block", "code": "shelfone-east", "attributes": { "types": { "wood": "{wood}" } } }
     }
 ]

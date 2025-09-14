@@ -2,33 +2,60 @@
     "code": "shelfone",
     "class": "StorageOptions.BlockShelfOne",
     "entityclass": "StorageOptions.BlockEntityShelfOne",
-    "creativeinventory": { "general": ["*-east"], "decorative": ["*-east"], "storageoptions": ["*-east"] },
-    "variantgroups": [
-        { "code": "wood", "states": ["aged"], "loadFromProperties": "block/wood" },
-        { "code": "side", "loadFromProperties": "abstract/horizontalorientation" }
-    ],
+    "variantgroups": [{ "code": "side", "loadFromProperties": "abstract/horizontalorientation" }],
     "attributes": {
         "handbook": { "groupBy": ["shelfone-*"] },
         "inventoryClassName": "shelfone",
         "attributeTransformCode": "onShelfOneTransform"
     },
     "behaviors": [
+        // to handle drops properly, call HorizontalAttachable before BlockShapeTexturesFromAttributes
+        { "name": "AttributeRenderingLibrary.HorizontalAttachable", "properties": { "dropBlockFace": "east" } },
         {
-            "name": "StorageOptions.BbName",
+            "name": "AttributeRenderingLibrary.BlockShapeTexturesFromAttributes",
             "properties": {
-                "parts": ["block-shelf-normal-*", " (", "material-{wood}", ")"]
+                "name": {
+                    "*": ["block-shelf-normal-*", " (", "material-{wood}", ")"]
+                },
+                "textures": {
+                    "wood-*": {
+                        "surface": { "base": "game:block/wood/debarked/{wood}" },
+                        "wood2": { "base": "game:block/wood/debarked/{wood}" }
+                    },
+                    "*": {
+                        "surface": { "base": "game:block/wood/debarked/oak" },
+                        "wood2": { "base": "game:block/wood/debarked/oak" }
+                    }
+                }
             }
-        },
-        { "name": "HorizontalAttachable", "properties": { "dropBlockFace": "east" } }
+        }
     ],
+    "entityBehaviors": [{ "name": "AttributeRenderingLibrary.ShapeTexturesFromAttributes" }],
+    "creativeInventoryStacksByType": {
+        "*-east": [
+            {
+                "tabs": ["general", "decorative", "storageoptions"],
+                "stacks": [
+                    { "type": "block", "code": "shelfone-east", "attributes": { "types": { "wood": "birch" } } },
+                    { "type": "block", "code": "shelfone-east", "attributes": { "types": { "wood": "oak" } } },
+                    { "type": "block", "code": "shelfone-east", "attributes": { "types": { "wood": "maple" } } },
+                    { "type": "block", "code": "shelfone-east", "attributes": { "types": { "wood": "pine" } } },
+                    { "type": "block", "code": "shelfone-east", "attributes": { "types": { "wood": "acacia" } } },
+                    { "type": "block", "code": "shelfone-east", "attributes": { "types": { "wood": "kapok" } } },
+                    { "type": "block", "code": "shelfone-east", "attributes": { "types": { "wood": "baldcypress" } } },
+                    { "type": "block", "code": "shelfone-east", "attributes": { "types": { "wood": "larch" } } },
+                    { "type": "block", "code": "shelfone-east", "attributes": { "types": { "wood": "redwood" } } },
+                    { "type": "block", "code": "shelfone-east", "attributes": { "types": { "wood": "ebony" } } },
+                    { "type": "block", "code": "shelfone-east", "attributes": { "types": { "wood": "walnut" } } },
+                    { "type": "block", "code": "shelfone-east", "attributes": { "types": { "wood": "purpleheart" } } }
+                ]
+            }
+        ]
+    },
     "shape": {
         "base": "game:block/wood/shelf",
         "selectiveElements": ["lower shelf"],
         "rotateYByType": { "*-north": 0, "*-east": 270, "*-west": 90, "*-south": 180 }
-    },
-    "textures": {
-        "surface": { "base": "game:block/wood/debarked/{wood}" },
-        "wood2": { "base": "game:block/wood/debarked/{wood}" }
     },
     "blockmaterial": "Wood",
     "lightAbsorption": 0,

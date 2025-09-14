@@ -2,32 +2,59 @@
     "code": "groundrack",
     "class": "StorageOptions.BlockGroundRack",
     "entityclass": "StorageOptions.BlockEntityGroundRack",
-    "creativeinventory": { "general": ["*-ns"], "decorative": ["*-ns"], "storageoptions": ["*-ns"] },
-    "variantgroups": [
-        { "code": "wood", "states": ["aged"], "loadFromProperties": "block/wood" },
-        { "code": "orientation", "states": ["ns", "we"] }
-    ],
+    "variantgroups": [{ "code": "orientation", "states": ["ns", "we"] }],
     "attributes": {
         "handbook": { "groupBy": ["groundrack-*"] },
         "inventoryClassName": "groundrack",
         "attributeTransformCode": "onGroundRackTransform"
     },
     "behaviors": [
+        { "name": "NWOrientable" },
         {
-            "name": "StorageOptions.BbName",
+            "name": "AttributeRenderingLibrary.BlockShapeTexturesFromAttributes",
             "properties": {
-                "parts": ["storageoptions:block-groundrack-*", " (", "material-{wood}", ")"]
+                "name": {
+                    "*": ["storageoptions:block-groundrack-*", " (", "material-{wood}", ")"]
+                },
+                "textures": {
+                    "wood-*": {
+                        "wood": { "base": "game:block/wood/debarked/{wood}" }
+                    },
+                    "*": {
+                        "wood": { "base": "game:block/wood/debarked/oak" }
+                    }
+                }
             }
         },
-        { "name": "NWOrientable" },
         { "name": "Unstable" }
     ],
+    "entityBehaviors": [{ "name": "AttributeRenderingLibrary.ShapeTexturesFromAttributes" }],
+    "creativeInventoryStacksByType": {
+        "*-ns": [
+            {
+                "tabs": ["general", "decorative", "storageoptions"],
+                "stacks": [
+                    { "type": "block", "code": "groundrack-ns", "attributes": { "types": { "wood": "birch" } } },
+                    { "type": "block", "code": "groundrack-ns", "attributes": { "types": { "wood": "oak" } } },
+                    { "type": "block", "code": "groundrack-ns", "attributes": { "types": { "wood": "maple" } } },
+                    { "type": "block", "code": "groundrack-ns", "attributes": { "types": { "wood": "pine" } } },
+                    { "type": "block", "code": "groundrack-ns", "attributes": { "types": { "wood": "acacia" } } },
+                    { "type": "block", "code": "groundrack-ns", "attributes": { "types": { "wood": "kapok" } } },
+                    { "type": "block", "code": "groundrack-ns", "attributes": { "types": { "wood": "baldcypress" } } },
+                    { "type": "block", "code": "groundrack-ns", "attributes": { "types": { "wood": "larch" } } },
+                    { "type": "block", "code": "groundrack-ns", "attributes": { "types": { "wood": "redwood" } } },
+                    { "type": "block", "code": "groundrack-ns", "attributes": { "types": { "wood": "ebony" } } },
+                    { "type": "block", "code": "groundrack-ns", "attributes": { "types": { "wood": "walnut" } } },
+                    { "type": "block", "code": "groundrack-ns", "attributes": { "types": { "wood": "purpleheart" } } }
+                ]
+            }
+        ]
+    },
     "shape": {
         "base": "block/wood/groundrack",
         "rotateYByType": { "*-we": 90 }
     },
     "textures": {
-        "wood": { "base": "game:block/wood/debarked/{wood}" },
         "nail": { "base": "game:block/metal/tarnished/rusty-iron" }
     },
     "blockmaterial": "Wood",

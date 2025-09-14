@@ -1,6 +1,6 @@
 namespace StorageOptions;
 
-public class BlockGroundRack : Block
+public class BlockGroundRack : BlockGeneric
 {
     private WorldInteraction[] interactions;
 

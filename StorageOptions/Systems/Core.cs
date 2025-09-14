@@ -5,7 +5,6 @@ global using System.Linq;
 global using System.Text;
 global using Vintagestory.API.Client;
 global using Vintagestory.API.Common;
-global using Vintagestory.API.Config;
 global using Vintagestory.API.Datastructures;
 global using Vintagestory.API.MathTools;
 global using Vintagestory.API.Util;
@@ -21,7 +20,6 @@ public class Core : ModSystem
 
     public override void Start(ICoreAPI api)
     {
-        api.RegisterBlockBehaviorClass("StorageOptions.BbName", typeof(BlockBehaviorName));
         api.RegisterBlockClass("StorageOptions.BlockGroundRack", typeof(BlockGroundRack));
         api.RegisterBlockClass("StorageOptions.BlockShelfOne", typeof(BlockShelfOne));
         api.RegisterBlockEntityClass("StorageOptions.BlockEntityGroundRack", typeof(BlockEntityGroundRack));
