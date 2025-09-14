@@ -4,8 +4,9 @@
     "name": "Storage Options",
     "description": "Various containers for storing your items such as weapon rack, single shelf etc.",
     "authors": ["Craluminum2413"],
-    "version": "1.0.4",
+    "version": "2.0.0",
     "dependencies": {
-        "game": "1.19.0"
+        "game": "1.21.0",
+        "attributerenderinglibrary": "2.3.0"
     }
 }
