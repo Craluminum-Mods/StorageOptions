@@ -36,11 +36,11 @@ public class BlockEntityShelfOne : BlockEntityDisplay
 
     private bool TryPut(ItemSlot slot, BlockSelection blockSel)
     {
-        int i = blockSel.SelectionBoxIndex;
+        int index = blockSel.SelectionBoxIndex;
 
-        if (inventory[i].Empty)
+        if (inventory[index].Empty)
         {
-            int amount = slot.TryPutInto(Api.World, inventory[i]);
+            int amount = slot.TryPutInto(Api.World, inventory[index]);
             updateMeshes();
             MarkDirty(redrawOnClient: true);
             (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
@@ -51,11 +51,11 @@ public class BlockEntityShelfOne : BlockEntityDisplay
 
     private bool TryTake(IPlayer byPlayer, BlockSelection blockSel)
     {
-        int i = blockSel.SelectionBoxIndex;
+        int index = blockSel.SelectionBoxIndex;
 
-        if (!inventory[i].Empty)
+        if (!inventory[index].Empty)
         {
-            ItemStack stack = inventory[i].TakeOut(1);
+            ItemStack stack = inventory[index].TakeOut(1);
             if (byPlayer.InventoryManager.TryGiveItemstack(stack))
             {
                 AssetLocation sound = stack.Block?.Sounds?.Place;
@@ -73,15 +73,19 @@ public class BlockEntityShelfOne : BlockEntityDisplay
         return false;
     }
 
-    public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb)
+    public override void GetBlockInfo(IPlayer forPlayer, StringBuilder dsc)
     {
-        base.GetBlockInfo(forPlayer, sb);
-        sb.AppendLine();
+        foreach (BlockEntityBehavior behavior in Behaviors)
+        {
+            behavior.GetBlockInfo(forPlayer, dsc);
+        }
+
+        dsc.AppendLine();
 
         if (!inventory[0].Empty)
         {
             ItemStack stack = inventory[0].Itemstack;
-            sb.AppendLine(stack.GetName());
+            dsc.AppendLine(stack.GetName());
         }
     }
 

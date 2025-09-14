@@ -36,11 +36,11 @@ public class BlockEntityGroundRack : BlockEntityDisplay
 
     private bool TryPut(ItemSlot slot, BlockSelection blockSel)
     {
-        int i = blockSel.SelectionBoxIndex;
+        int index = blockSel.SelectionBoxIndex;
 
-        if (inventory[i].Empty)
+        if (inventory[index].Empty)
         {
-            int amount = slot.TryPutInto(Api.World, inventory[i]);
+            int amount = slot.TryPutInto(Api.World, inventory[index]);
             updateMeshes();
             MarkDirty(redrawOnClient: true);
             (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
@@ -51,11 +51,11 @@ public class BlockEntityGroundRack : BlockEntityDisplay
 
     private bool TryTake(IPlayer byPlayer, BlockSelection blockSel)
     {
-        int i = blockSel.SelectionBoxIndex;
+        int index = blockSel.SelectionBoxIndex;
 
-        if (!inventory[i].Empty)
+        if (!inventory[index].Empty)
         {
-            ItemStack stack = inventory[i].TakeOut(1);
+            ItemStack stack = inventory[index].TakeOut(1);
             if (byPlayer.InventoryManager.TryGiveItemstack(stack))
             {
                 AssetLocation sound = stack.Block?.Sounds?.Place;
@@ -73,14 +73,22 @@ public class BlockEntityGroundRack : BlockEntityDisplay
         return false;
     }
 
-    public override void GetBlockInfo(IPlayer forPlayer, StringBuilder sb)
+    public override void GetBlockInfo(IPlayer forPlayer, StringBuilder dsc)
     {
-        int i = forPlayer.CurrentBlockSelection.SelectionBoxIndex;
-        ItemSlot slot = inventory[i];
+        foreach (BlockEntityBehavior behavior in Behaviors)
+        {
+            behavior.GetBlockInfo(forPlayer, dsc);
+        }
+        
+        dsc.AppendLine();
+
+        int index = forPlayer.CurrentBlockSelection.SelectionBoxIndex;
+
+        ItemSlot slot = inventory[index];
         if (!slot.Empty)
         {
             ItemStack stack = slot.Itemstack;
-            sb.AppendLine(stack.GetName());
+            dsc.AppendLine(stack.GetName());
         }
     }
 
