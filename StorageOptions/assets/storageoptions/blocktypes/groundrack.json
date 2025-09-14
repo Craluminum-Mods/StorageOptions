@@ -9,7 +9,8 @@
         "attributeTransformCode": "onGroundRackTransform"
     },
     "behaviors": [
-        { "name": "NWOrientable" },
+        // to handle drops properly, call NWOrientable before BlockShapeTexturesFromAttributes
+        { "name": "AttributeRenderingLibrary.NWOrientable" },
         {
             "name": "AttributeRenderingLibrary.BlockShapeTexturesFromAttributes",
             "properties": {
