@@ -67,10 +67,9 @@ public class Core : ModSystem
 
     private void PatchGroundRackable(CollectibleObject obj)
     {
-        ModelTransform transform = obj.GetTransform(Transformations.OnGroundRackTransform);
-
         if (WildcardUtil.Match(GroundRackableCodes, obj.Code) || GroundRackableTypes.Contains(obj.GetType()) || obj.Tool != null)
         {
+            ModelTransform transform = obj.GetTransform(Transformations.OnGroundRackTransform);
             // obj.AddToCreativeInv(tab: GroundRackable); // for testing
 
             obj.EnsureAttributesNotNull();
@@ -85,10 +84,9 @@ public class Core : ModSystem
 
     private void PatchShelvableOne(CollectibleObject obj)
     {
-        ModelTransform transform = obj.GetTransform(Transformations.OnShelfOneTransform);
-
         if (WildcardUtil.Match(ShelvableOneCodes, obj.Code) || ShelvableOneTypes.Contains(obj.GetType()) || obj?.Attributes?.KeyExists("backpack") == true)
         {
+            ModelTransform transform = obj.GetTransform(Transformations.OnShelfOneTransform);
             // obj.AddToCreativeInv(tab: ShelvableOne); // for testing
 
             obj.EnsureAttributesNotNull();
